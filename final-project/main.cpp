@@ -11,7 +11,9 @@
 int main(int argc, const char * argv[]) {
     // insert code here...
     // TEST
-    std::cout << "Hello, World!\n";
+    std::cout << "Hello, World!___\n";
+    std::string str;
+    std::cin >> str;
     return 0;
     //test
 }
