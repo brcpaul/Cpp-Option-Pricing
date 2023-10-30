@@ -1,1 +1,2 @@
 C:\Users\TRAVAIL\source\repos\cpp_project\Debug\cpp_project.exe
+C:\Users\user\source\repos\cpp_project\Debug\cpp_project.exe
