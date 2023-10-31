@@ -9,7 +9,7 @@ class BinaryTree {
 		int _depth; //represents N
 		std::vector<std::vector<T>> _tree; //hold data of type T
 	public :
-		BinaryTree(int depth) : _depth{ depth } { setDepth(depth); }
+		BinaryTree(int depth = 0) : _depth{ depth } { setDepth(depth); }
 		T getNode(int, int) const;
 		void setDepth(int);
 		void setNode(int, int, T);
@@ -21,6 +21,8 @@ class BinaryTree {
 		//https://cplusplus.com/reference/vector/vector/ (best)
 		//https://stackoverflow.com/questions/36802354/print-binary-tree-in-a-pretty-way-using-c
 		//https://stackoverflow.com/questions/40054600/searching-binary-tree-of-objects-for-a-single-class-member
+
+		//https://www.youtube.com/watch?v=B6eIfpcAXKk
 };
 
 #pragma region TESTS BINARY TREE : 

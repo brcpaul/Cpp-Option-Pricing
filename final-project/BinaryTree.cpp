@@ -74,7 +74,23 @@ void BinaryTree<T>::display() const {
 		std::cout << std::endl;
 	}
 	//Second display : 
-
+	/* Archi faux :
+	int a = 0;
+	for (int i = 0;i <= _depth;i++) {
+		a = (int)((_tree.size()-i) / 2) - 1;
+		for (b = 0;b <= a;b++) {
+			std::cout << "    ";
+		}
+		for (int j = 0; j <= i; j++) {
+			std::cout _tree[i][j] << "    ";
+		}
+		if (i < _depth) {
+			for () {
+				std::cout << " /\\ ";
+			}
+		}
+	}
+	*/
 }
 
 #pragma region TESTS BINARY TREE : 
