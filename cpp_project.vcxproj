@@ -98,6 +98,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="final-project\BinaryTree.cpp" />
     <ClCompile Include="final-project\BlackScholes.cpp" />
     <ClCompile Include="final-project\main.cpp" />
   </ItemGroup>

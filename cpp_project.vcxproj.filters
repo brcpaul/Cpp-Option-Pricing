@@ -21,6 +21,9 @@
     <ClCompile Include="final-project\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="final-project\BinaryTree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="final-project\header.h">
