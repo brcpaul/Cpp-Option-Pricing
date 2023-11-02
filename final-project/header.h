@@ -15,6 +15,7 @@ class BinaryTree {
 		void setNode(int, int, T);
 		void display() const; 
 		int verif_i(int, int) const;
+		int max_digit() const;
 
 		//liens antoine (à ne pas effacer svp): 
 		//https://www.geeksforgeeks.org/vector-in-cpp-stl/

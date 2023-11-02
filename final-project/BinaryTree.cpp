@@ -2,6 +2,7 @@
 #include <string>
 #include <sstream>
 #include <math.h>
+#include <limits>
 
 /// <summary> 
 /// The setter method (setDepth(int) a setter for _depth) that resizes _tree and allocate / deallocate properly the vectors in tree
@@ -77,6 +78,32 @@ std::string to_string_with_decimals(T value, int n_decimals = 6)
 }
 
 template <typename T>
+int BinaryTree<T>::max_digit() const {
+	int max_digit = 0;
+	//std::cout << std::to_string(_tree[0][0]) << std::endl; 
+	for (const auto& vect : _tree) {
+		for (const auto& sous_vect : vect) {
+			std::string str = std::to_string(sous_vect);
+			int str_digit = str.find('.') != std::string::npos ? str.find('.') : str.size();
+			//gestion des 0 inutiles :
+			int str_digit_deci = 0;
+			if (str.find('.') != std::string::npos) {
+				for (int i = str.size() - 1 ; i > str.find('.'); i--) { //(size_t i) à la place de (int i) peut-etre
+					if (str[i] != '0') {
+						str_digit_deci = i - str.find('.');
+						break;
+					}
+				}
+			}
+			//int str_digit_deci = str.find('.') != std::string::npos ? str.size() - str.find('.') - 1 : 0;
+			//std::cout << str.size() << " " << str.find('.') << "(str_digit ; str_digit_deci) : (" << str_digit << ";" << str_digit_deci << ")." << std::endl;
+			max_digit = std::max(max_digit, str_digit + str_digit_deci);
+		}
+	}
+	return max_digit;
+}
+
+template <typename T>
 void BinaryTree<T>::display() const {
 	//First display : 
 	for (int i = 0; i <= _depth;i++) {
@@ -86,25 +113,8 @@ void BinaryTree<T>::display() const {
 		std::cout << std::endl;
 	}
 	//Second display : 
-	/* Archi faux :
-	int a = 0;
-	for (int i = 0;i <= _depth;i++) {
-		a = (int)((_tree.size()-i) / 2) - 1;
-		for (b = 0;b <= a;b++) {
-			std::cout << "    ";
-		}
-		for (int j = 0; j <= i; j++) {
-			std::cout _tree[i][j] << "    ";
-		}
-		if (i < _depth) {
-			for () {
-				std::cout << " /\\ ";
-			}
-		}
-	}
-	*/
-
-	int string_width = 3;
+	int string_width = this->max_digit();
+	//std::cout << "max_digit = " << string_width << std::endl;
 	for (int i = 0;i <= _depth;i++) {
 
 
@@ -128,12 +138,13 @@ void BinaryTree<T>::display() const {
 		std::cout << std::string(string_width * (_depth - i), ' ');
 
 		for (int k = 0;k <= i;k++) {
-			std::string s = to_string_with_decimals(_tree[i][k], 1);
+			std::string s = to_string_with_decimals(_tree[i][k], 1); //A modif Impérativement ATTENTION si on réduit par choix à 1 décimal on aura pas tout
 			std::cout << std::string((string_width - s.size()) / 2, ' ') << s << std::string((string_width - s.size()) / 2, ' ') << std::string(string_width, ' ');
 		}
 		std::cout << std::endl;
 	}
 }
+
 
 #pragma region TESTS BINARY TREE : 
 void test_bt_1(int depth) {
