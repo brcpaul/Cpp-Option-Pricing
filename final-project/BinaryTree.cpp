@@ -1,4 +1,7 @@
 #include "header.h"
+#include <string>
+#include <sstream>
+#include <math.h>
 
 /// <summary> 
 /// The setter method (setDepth(int) a setter for _depth) that resizes _tree and allocate / deallocate properly the vectors in tree
@@ -65,6 +68,15 @@ T BinaryTree<T>::getNode(int i_vect, int i_sous_vect) const {
 }
 
 template <typename T>
+std::string to_string_with_decimals(T value, int n_decimals = 6)
+{
+	std::ostringstream out_stream;
+	out_stream.precision(n_decimals);
+	out_stream << std::fixed << value;
+	return std::move(out_stream).str();
+}
+
+template <typename T>
 void BinaryTree<T>::display() const {
 	//First display : 
 	for (int i = 0; i <= _depth;i++) {
@@ -91,6 +103,36 @@ void BinaryTree<T>::display() const {
 		}
 	}
 	*/
+
+	int string_width = 3;
+	for (int i = 0;i <= _depth;i++) {
+
+
+		if (i > 0) {
+			std::cout << std::string(string_width * (_depth - i), ' ');
+			for (int k = 0;k <= i;k++) {
+				if (k == 0) {
+					std::cout << std::string((string_width+1)/2, ' ') << "/" << std::string((string_width - 3) / 2, ' ') << std::string(string_width, ' ');
+				}
+				else if (k == i) {
+					std::cout << std::string((string_width - 3) / 2, ' ') << "\\" << std::string((string_width + 1) / 2, ' ') << std::string(string_width, ' ');
+				}
+				else {
+					std::cout << std::string((string_width - 3) / 2, ' ') << "\\ /" << std::string((string_width - 3) / 2, ' ') << std::string(string_width, ' ');
+				}
+			}
+			std::cout << std::endl;
+		}
+
+
+		std::cout << std::string(string_width * (_depth - i), ' ');
+
+		for (int k = 0;k <= i;k++) {
+			std::string s = to_string_with_decimals(_tree[i][k], 1);
+			std::cout << std::string((string_width - s.size()) / 2, ' ') << s << std::string((string_width - s.size()) / 2, ' ') << std::string(string_width, ' ');
+		}
+		std::cout << std::endl;
+	}
 }
 
 #pragma region TESTS BINARY TREE : 
@@ -104,7 +146,7 @@ void test_bt_1() {
 	tree.display();
 }
 void test_bt_2() { //indices en dehors vecteur 
-	BinaryTree<double> tree(4);
+	BinaryTree<double> tree(5);
 	for (int i = 0; i <= 5;i++) {//chgt ici !
 		for (int j = 0; j <= i; j++) {
 			tree.setNode(i, j, i * j * 0.23);
