@@ -1,7 +1,4 @@
 #include "header.h"
-#include <string>
-#include <sstream>
-#include <math.h>
 
 /// <summary> 
 /// The setter method of BinaryTree (setDepth(int) a setter for _depth) that resizes _tree and allocate / deallocate properly the vectors in tree
