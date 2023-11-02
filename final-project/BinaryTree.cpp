@@ -2,12 +2,11 @@
 #include <string>
 #include <sstream>
 #include <math.h>
-#include <limits>
 
 /// <summary> 
-/// The setter method (setDepth(int) a setter for _depth) that resizes _tree and allocate / deallocate properly the vectors in tree
+/// The setter method of BinaryTree (setDepth(int) a setter for _depth) that resizes _tree and allocate / deallocate properly the vectors in tree
 /// </summary>
-/// <typeparam name="T">Type of value in BinaryTree</typeparam>
+/// <typeparam name="T">Type of data stored in the binary tree (int, double, float, etc.)</typeparam>
 /// <param name="d">depth</param>
 template <typename T>
 void BinaryTree<T>::setDepth(int d){
@@ -18,9 +17,9 @@ void BinaryTree<T>::setDepth(int d){
     }
 }
 /// <summary>
-/// Verification method (used in order to reduce iteration in methods and valid indices)
+/// Verification method of BinaryTree (used in order to reduce iteration in methods and valid indices)
 /// </summary>
-/// <typeparam name="T">Type of value in BinaryTree</typeparam>
+/// <typeparam name="T">Type of data stored in the binary tree</typeparam>
 /// <param name="i_vect">Vector indices</param>
 /// <param name="i_sous_vect">Sous_vector indices</param>
 /// <returns>0 or 1 (for true or false valid indices)</returns>
@@ -40,9 +39,9 @@ int BinaryTree<T>::verif_i(int i_vect, int i_sous_vect) const {
 	}
 }
 /// <summary>
-/// Setter Method to set node of the Binary Tree at specific indices (set one of the values of the vector of vector)
+/// Setter Method of BinaryTree to set node of the Binary Tree at specific indices (set one of the values of the vector of vector)
 /// </summary>
-/// <typeparam name="T">Type of value in BinaryTree</typeparam>
+/// <typeparam name="T">Type of data stored in the binary tree</typeparam>
 /// <param name="i_vect">Vector indices</param>
 /// <param name="i_sous_vect">Sous_vector indices</param>
 /// <param name="val">Value of type T</param>
@@ -54,9 +53,9 @@ void BinaryTree<T>::setNode(int i_vect, int i_sous_vect, T val) {
 	}
 }
 /// <summary>
-/// Getter Method  to get node of the Binary Tree at specific indices
+/// Getter Method of BinaryTree to get node of the Binary Tree at specific indices
 /// </summary>
-/// <typeparam name="T">Type of value in BinaryTree</typeparam>
+/// <typeparam name="T">Type of data stored in the binary tree</typeparam>
 /// <param name="i_vect">Vector indices</param>
 /// <param name="i_sous_vect">Sous_vector indices</param>
 /// <returns>Value of the Node or default value for invalid indices</returns>
@@ -67,7 +66,13 @@ T BinaryTree<T>::getNode(int i_vect, int i_sous_vect) const {
 	}
 	return T();
 }
-
+/// <summary>
+/// Method of BinaryTree which converts a value of type T to a string with a specified number of decimals places
+/// </summary>
+/// <typeparam name="T">Type of data stored in the binary tree</typeparam>
+/// <param name="value">the value to be converted to a string</param>
+/// <param name="n_decimals">Number of decimal places</param>
+/// <returns>A string with  a specified number of decimals places</returns>
 template <typename T>
 std::string to_string_with_decimals(T value, int n_decimals = 6)
 {
@@ -76,7 +81,11 @@ std::string to_string_with_decimals(T value, int n_decimals = 6)
 	out_stream << std::fixed << value;
 	return std::move(out_stream).str();
 }
-
+/// <summary>
+/// Method of BinaryTree which calculates the maximum total number of digits (both before and after the decimal point) in the vector of vector
+/// </summary>
+/// <typeparam name="T">Type of data stored in the binary tree</typeparam>
+/// <returns>The maximum total number of digits in the binary tree</returns>
 template <typename T>
 int BinaryTree<T>::max_digit() const {
 	int max_digit = 0;
@@ -84,6 +93,7 @@ int BinaryTree<T>::max_digit() const {
 	for (const auto& vect : _tree) {
 		for (const auto& sous_vect : vect) {
 			std::string str = std::to_string(sous_vect);
+			//std::string::npos = const static de std::string en lien avec .find("motif") pour voir si aucune correspondance "motif" n'a été trouvée
 			int str_digit = str.find('.') != std::string::npos ? str.find('.') : str.size();
 			//gestion des 0 inutiles :
 			int str_digit_deci = 0;
@@ -102,7 +112,10 @@ int BinaryTree<T>::max_digit() const {
 	}
 	return max_digit;
 }
-
+/// <summary>
+/// Method of BinaryTree which displays the binary tree in two formated manners
+/// </summary>
+/// <typeparam name="T">Type of data stored in the binary tree</typeparam>
 template <typename T>
 void BinaryTree<T>::display() const {
 	//First display : 
@@ -113,7 +126,7 @@ void BinaryTree<T>::display() const {
 		std::cout << std::endl;
 	}
 	//Second display : 
-	int string_width = this->max_digit();
+	int string_width = max_digit();
 	//std::cout << "max_digit = " << string_width << std::endl;
 	for (int i = 0;i <= _depth;i++) {
 
