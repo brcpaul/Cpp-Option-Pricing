@@ -7,8 +7,8 @@
 
 #include "header.h"
 void test_Antoine() {   
-    //test_bt_1();
-    test_bt_2();
+    test_bt_1(7);
+    //test_bt_2();
 }
 int main(int argc, const char * argv[]) {
     test_Antoine();

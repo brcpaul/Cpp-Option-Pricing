@@ -136,9 +136,9 @@ void BinaryTree<T>::display() const {
 }
 
 #pragma region TESTS BINARY TREE : 
-void test_bt_1() {
-	BinaryTree<double> tree(4);
-	for (int i = 0; i <= 4;i++) {
+void test_bt_1(int depth) {
+	BinaryTree<double> tree(depth);
+	for (int i = 0; i <= depth;i++) {
 		for (int j = 0; j <= i; j++) {
 			tree.setNode(i, j, i*j*0.23);
 		}
@@ -146,7 +146,7 @@ void test_bt_1() {
 	tree.display();
 }
 void test_bt_2() { //indices en dehors vecteur 
-	BinaryTree<double> tree(5);
+	BinaryTree<double> tree(4);
 	for (int i = 0; i <= 5;i++) {//chgt ici !
 		for (int j = 0; j <= i; j++) {
 			tree.setNode(i, j, i * j * 0.23);

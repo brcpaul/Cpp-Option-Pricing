@@ -26,6 +26,6 @@ class BinaryTree {
 };
 
 #pragma region TESTS BINARY TREE : 
-void test_bt_1();
+void test_bt_1(int);
 void test_bt_2();
 #pragma endregion 
