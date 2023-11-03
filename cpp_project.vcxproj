@@ -19,8 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <VCProjectVersion>17.0</VCProjectVersion>
-    <ProjectGuid>{B6A53492-5EAF-4A84-8AA2-18E2F18C8871}</ProjectGuid>
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <ProjectGuid>{15468B3D-D384-45E6-A919-53F4213EAD92}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -98,7 +98,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="final-project\Black-Scholes.cpp" />
+    <ClCompile Include="final-project\BinaryTree.cpp" />
+    <ClCompile Include="final-project\BlackScholes.cpp" />
     <ClCompile Include="final-project\main.cpp" />
   </ItemGroup>
   <ItemGroup>
