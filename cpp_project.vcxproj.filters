@@ -29,7 +29,7 @@
     <ClInclude Include="final-project\header.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="final-project\Header1.h">
+    <ClInclude Include="final-project\BlackScholes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

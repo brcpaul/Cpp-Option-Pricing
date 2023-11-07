@@ -36,19 +36,26 @@ void test_bt_2();
 
 class CRRPricer {
 	private :
-		//Option* option = nullprt;
+		Option* _option = nullptr;
 		int _depth;
 		double _asset_price;
 		double _up;
 		double _down;
 		double _interest_rate;
-		BinaryTree<double> tree;
+		BinaryTree<double> _tree;
 	public:
-		CRRPricer(/*Option* option,*/ int depth, double asset_price, double up, double down, double interest_rate) :
-			/*option{option},*/ _depth{ depth }, _asset_price{ asset_price }, _up{ up }, _down{ down }, _interest_rate{ interest_rate }{
-			BinaryTree<double> tree(depth);
+		CRRPricer(Option* option, int depth, double asset_price, double up, double down, double interest_rate) :
+			_option{option}, _depth{ depth }, _asset_price{ asset_price }, _up{ up }, _down{ down }, _interest_rate{ interest_rate }{
+			BinaryTree<double> _tree(depth);
 		}
 		void compute();
-		double get(int, int); //verif si c bien double
-		double operator()(bool closed_form = false);
+		double get(int n, int i) { return _tree.getNode(n, i); }
+		double operator()(bool closed_form = false) {
+			if (closed_form) {
+
+			}
+			else {
+				compute();
+			}
+		}
 };
