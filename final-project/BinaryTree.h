@@ -4,7 +4,6 @@
 #include <vector>
 #include <string>
 #include <sstream>
-#include "BlackScholes.h"
 
 template <typename T>
 class BinaryTree {
