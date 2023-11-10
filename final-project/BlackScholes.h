@@ -7,6 +7,7 @@ class Option {
 
 private:
     double expiry;
+   
 
 public:
     Option(double valeur) :expiry(valeur) {  }   // Constructor.
@@ -93,52 +94,60 @@ public:
 
 
 class BlackScholesPricer {
-private:
-    VanillaOption* option;
-    double asset_price;
-    double interest_rate;
-    double volatility;
+    private:
+        VanillaOption* option;
+        double assetPrice;
+        double interestRate;
+        double volatility;
 
-public:
-    BlackScholesPricer(VanillaOption* option, double asset_price, double interest_rate, double volatility)
-        : option(option), asset_price(asset_price), interest_rate(interest_rate), volatility(volatility) {}
+    public:
+        BlackScholesPricer(VanillaOption* option, double assetPrice, double interestRate, double volatility)
+        :  option(option), assetPrice(assetPrice), interestRate(interestRate), volatility(volatility) {}
 
     
-        double valeur = Option::getExpiry();//erreur accessibilité
+        double S = assetPrice;
+        double K = option->strike;
+        double T = option->getExpiry();
+        double r = interestRate;
+        double sigma = volatility;
+
+        //fonction de repartition de la loi normale
+        double cumulativeDistributionFunction(double x)
+        {
+            return 0.5 * (1 + std::erf(x / std::sqrt(2.0)));
+        }
+
         double operator()() {
-        double S = asset_price;
-        double K = option->strike;
-        double T = valeur;
-        double r = interest_rate;
-        double sigma = volatility;
 
-        double d1 = (log(S / K) + (r + (sigma * sigma) / 2.0) * T) / (sigma * sqrt(T));
-        double d2 = d1 - sigma * sqrt(T);
+            
 
-        if (option->GetOptionType() == OptionType::Call) {
-            return S * std::exp(-r * T) * (1 - std::erfc(-d2) / 2);
+            double d1 = (log(S / K) + (r + (sigma * sigma) / 2.0) * T) / (sigma * sqrt(T));
+            double d2 = d1 - sigma * sqrt(T);
+
+            if (option->GetOptionType() == OptionType::Call) {
+                return S * std::exp(-r * T) * (1 - std::erfc(-d2) / 2);//mod
+            }
+            else {
+                return S * std::exp(-r * T) * (1 + std::erfc(d2) / 2);//mod
+            }
         }
-        else {
-            return S * std::exp(-r * T) * (1 + std::erfc(d2) / 2);
-        }
-    }
 
-    double delta() {
-        double S = asset_price;
-        double K = option->strike;
-        double T = option->expiry;//erreur accessibilité
-        double r = interest_rate;
-        double sigma = volatility;
+        double delta() {
+            double S = assetPrice;
+            double K = option->strike;
+            double T = option->getExpiry();
+            double r = interestRate;
+            double sigma = volatility;
 
-        double d1 = (log(S / K) + (r + (sigma * sigma) / 2.0) * T) / (sigma * sqrt(T));
+            double d1 = (log(S / K) + (r + (sigma * sigma) / 2.0) * T) / (sigma * sqrt(T));
 
-        if (option->GetOptionType() == OptionType::Call) {
-            return std::exp(-r * T) * std::erfc(-d1) / 2;
+            if (option->GetOptionType() == OptionType::Call) {
+                return std::exp(-r * T) * std::erfc(-d1) / 2;
+            }
+            else {
+                return std::exp(-r * T) * (std::erfc(d1) / 2 - 1);
+            }
         }
-        else {
-            return std::exp(-r * T) * (std::erfc(d1) / 2 - 1);
-        }
-    }
 };
 
 
