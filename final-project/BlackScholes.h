@@ -112,7 +112,7 @@ class BlackScholesPricer {
         double sigma = volatility;
 
         //fonction de repartition de la loi normale
-        double cumulativeDistributionFunction(double x)
+        double N(double x)
         {
             return 0.5 * (1 + std::erf(x / std::sqrt(2.0)));
         }
@@ -125,10 +125,10 @@ class BlackScholesPricer {
             double d2 = d1 - sigma * sqrt(T);
 
             if (option->GetOptionType() == OptionType::Call) {
-                return S * std::exp(-r * T) * (1 - std::erfc(-d2) / 2);//mod
+                return S * N(d1) - K * std::exp(-r * T) * N(d2);
             }
             else {
-                return S * std::exp(-r * T) * (1 + std::erfc(d2) / 2);//mod
+                return -S * N(-d1) + K * std::exp(-r * T) * N(-d2);
             }
         }
 
@@ -142,10 +142,10 @@ class BlackScholesPricer {
             double d1 = (log(S / K) + (r + (sigma * sigma) / 2.0) * T) / (sigma * sqrt(T));
 
             if (option->GetOptionType() == OptionType::Call) {
-                return std::exp(-r * T) * std::erfc(-d1) / 2;
+                return N(d1);
             }
             else {
-                return std::exp(-r * T) * (std::erfc(d1) / 2 - 1);
+                return N(d1) - 1;
             }
         }
 };
