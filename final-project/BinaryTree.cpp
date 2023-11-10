@@ -1,4 +1,4 @@
-#include "header.h"
+#include "BinaryTree.h"
 
 /// <summary> 
 /// The setter method of BinaryTree (setDepth(int) a setter for _depth) that resizes _tree and allocate / deallocate properly the vectors in tree
@@ -17,12 +17,12 @@ void BinaryTree<T>::setDepth(int d){
 /// Verification method of BinaryTree (used in order to reduce iteration in methods and valid indices)
 /// </summary>
 /// <typeparam name="T">Type of data stored in the binary tree</typeparam>
-/// <param name="i_vect">Vector indices</param>
-/// <param name="i_sous_vect">Sous_vector indices</param>
+/// <param name="iVect">Vector indices</param>
+/// <param name="iSubVect">sousVector indices</param>
 /// <returns>0 or 1 (for true or false valid indices)</returns>
 template <typename T>
-int BinaryTree<T>::verif_i(int i_vect, int i_sous_vect) const {
-	if (i_vect >= 0 && i_vect <= _depth && i_sous_vect >= 0 && i_sous_vect <= i_vect) 
+int BinaryTree<T>::verifIndex(int iVect, int iSubVect) const {
+	if (iVect >= 0 && iVect <= _depth && iSubVect >= 0 && iSubVect <= iVect) 
 	//Conditions de vérifications taille vecteur (entre 0 et depth) et  taille sous vecteur (entre 0 et indice vecteur)
 	{
 		return 1;
@@ -31,7 +31,7 @@ int BinaryTree<T>::verif_i(int i_vect, int i_sous_vect) const {
 	//Si condition non valide => raise une erreur (si en dehors taille vecteur et sous-vecteur)
 	{
 		//std::cerr << "Invalid indices !" << std::endl;
-		std::cerr << "Invalid indices at : --- ("<<i_vect << ";"<<i_sous_vect<<") --- !" << std::endl;
+		std::cerr << "Invalid indices at : --- ("<<iVect << ";"<<iSubVect<<") --- !" << std::endl;
 		return 0;
 	}
 }
@@ -39,27 +39,27 @@ int BinaryTree<T>::verif_i(int i_vect, int i_sous_vect) const {
 /// Setter Method of BinaryTree to set node of the Binary Tree at specific indices (set one of the values of the vector of vector)
 /// </summary>
 /// <typeparam name="T">Type of data stored in the binary tree</typeparam>
-/// <param name="i_vect">Vector indices</param>
-/// <param name="i_sous_vect">Sous_vector indices</param>
+/// <param name="iVect">Vector indices</param>
+/// <param name="iSubVect">sousVector indices</param>
 /// <param name="val">Value of type T</param>
 template <typename T>
-void BinaryTree<T>::setNode(int i_vect, int i_sous_vect, T val) {
-	if (verif_i(i_vect, i_sous_vect)) 
+void BinaryTree<T>::setNode(int iVect, int iSubVect, T val) {
+	if (verifIndex(iVect, iSubVect)) 
 	{
-		_tree[i_vect][i_sous_vect] = val; //afectation 
+		_tree[iVect][iSubVect] = val; //afectation 
 	}
 }
 /// <summary>
 /// Getter Method of BinaryTree to get node of the Binary Tree at specific indices
 /// </summary>
 /// <typeparam name="T">Type of data stored in the binary tree</typeparam>
-/// <param name="i_vect">Vector indices</param>
-/// <param name="i_sous_vect">Sous_vector indices</param>
+/// <param name="iVect">Vector indices</param>
+/// <param name="iSubVect">sousVector indices</param>
 /// <returns>Value of the Node or default value for invalid indices</returns>
 template <typename T>
-T BinaryTree<T>::getNode(int i_vect, int i_sous_vect) const {
-	if (verif_i(i_vect, i_sous_vect)) {
-		return _tree[i_vect][i_sous_vect];
+T BinaryTree<T>::getNode(int iVect, int iSubVect) const {
+	if (verifIndex(iVect, iSubVect)) {
+		return _tree[iVect][iSubVect];
 	}
 	return T();
 }
@@ -68,15 +68,15 @@ T BinaryTree<T>::getNode(int i_vect, int i_sous_vect) const {
 /// </summary>
 /// <typeparam name="T">Type of data stored in the binary tree</typeparam>
 /// <param name="value">the value to be converted to a string</param>
-/// <param name="n_decimals">Number of decimal places</param>
+/// <param name="nDecimals">Number of decimal places</param>
 /// <returns>A string with  a specified number of decimals places</returns>
 template <typename T>
-std::string to_string_with_decimals(T value, int n_decimals = 6)
+std::string toStringWithDecimals(T value, int nDecimals = 6)
 {
-	std::ostringstream out_stream;
-	out_stream.precision(n_decimals);
-	out_stream << std::fixed << value;
-	return std::move(out_stream).str();
+	std::ostringstream outStream;
+	outStream.precision(nDecimals);
+	outStream << std::fixed << value;
+	return std::move(outStream).str();
 }
 /// <summary>
 /// Method of BinaryTree which calculates the maximum total number of digits (both before and after the decimal point) in the vector of vector
@@ -84,30 +84,31 @@ std::string to_string_with_decimals(T value, int n_decimals = 6)
 /// <typeparam name="T">Type of data stored in the binary tree</typeparam>
 /// <returns>The maximum total number of digits in the binary tree</returns>
 template <typename T>
-int BinaryTree<T>::max_digit() const {
-	int max_digit = 0;
+int BinaryTree<T>::maxDigit() const {
+	int maxDigit = 0;
 	//std::cout << std::to_string(_tree[0][0]) << std::endl; 
 	for (const auto& vect : _tree) {
-		for (const auto& sous_vect : vect) {
-			std::string str = std::to_string(sous_vect);
+		for (const auto& sousVect : vect) {
+			std::string str = std::to_string(sousVect);
 			//std::string::npos = const static de std::string en lien avec .find("motif") pour voir si aucune correspondance "motif" n'a été trouvée
-			int str_digit = str.find('.') != std::string::npos ? str.find('.') : str.size();
+			int strDigit = str.find('.') != std::string::npos ? str.find('.') : str.size();
 			//gestion des 0 inutiles :
-			int str_digit_deci = 0;
+			int strDigitDeci = 0;
 			if (str.find('.') != std::string::npos) {
 				for (int i = str.size() - 1 ; i > str.find('.'); i--) { //(size_t i) à la place de (int i) peut-etre
 					if (str[i] != '0') {
-						str_digit_deci = i - str.find('.');
+						strDigitDeci = i - str.find('.');
 						break;
 					}
 				}
 			}
-			//int str_digit_deci = str.find('.') != std::string::npos ? str.size() - str.find('.') - 1 : 0;
-			//std::cout << str.size() << " " << str.find('.') << "(str_digit ; str_digit_deci) : (" << str_digit << ";" << str_digit_deci << ")." << std::endl;
-			max_digit = std::max(max_digit, str_digit + str_digit_deci);
+			//int strDigitDeci = str.find('.') != std::string::npos ? str.size() - str.find('.') - 1 : 0;
+			//std::cout << str.size() << " " << str.find('.') << "(strDigit ; strDigitDeci) : (" << strDigit << ";" << strDigitDeci << ")." << std::endl;
+			maxDigit = std::max(maxDigit, strDigit + strDigitDeci);
 		}
 	}
-	return max_digit;
+	if (maxDigit % 2 == 0) maxDigit++;
+	return maxDigit;
 }
 /// <summary>
 /// Method of BinaryTree which displays the binary tree in two formated manners
@@ -123,33 +124,36 @@ void BinaryTree<T>::display() const {
 		std::cout << std::endl;
 	}
 	//Second display : 
-	int string_width = max_digit();
-	//std::cout << "max_digit = " << string_width << std::endl;
+	int stringWidth = maxDigit();
+	std::cout << stringWidth << std::endl;
+	//std::cout << "maxDigit = " << stringWidth << std::endl;
 	for (int i = 0;i <= _depth;i++) {
 
 
 		if (i > 0) {
-			std::cout << std::string(string_width * (_depth - i), ' ');
+			std::cout << std::string(stringWidth * (_depth - i), ' ');
 			for (int k = 0;k <= i;k++) {
 				if (k == 0) {
-					std::cout << std::string((string_width+1)/2, ' ') << "/" << std::string((string_width - 3) / 2, ' ') << std::string(string_width, ' ');
+					std::cout << std::string((stringWidth+1)/2, ' ') << "/" << std::string((stringWidth - 3) / 2, ' ') << std::string(stringWidth, ' ');
 				}
 				else if (k == i) {
-					std::cout << std::string((string_width - 3) / 2, ' ') << "\\" << std::string((string_width + 1) / 2, ' ') << std::string(string_width, ' ');
+					std::cout << std::string((stringWidth - 3) / 2, ' ') << "\\" << std::string((stringWidth + 1) / 2, ' ') << std::string(stringWidth, ' ');
 				}
 				else {
-					std::cout << std::string((string_width - 3) / 2, ' ') << "\\ /" << std::string((string_width - 3) / 2, ' ') << std::string(string_width, ' ');
+					std::cout << std::string((stringWidth - 3) / 2, ' ') << "\\ /" << std::string((stringWidth - 3) / 2, ' ') << std::string(stringWidth, ' ');
 				}
 			}
 			std::cout << std::endl;
 		}
 
 
-		std::cout << std::string(string_width * (_depth - i), ' ');
+		std::cout << std::string(stringWidth * (_depth - i), ' ');
 
 		for (int k = 0;k <= i;k++) {
-			std::string s = to_string_with_decimals(_tree[i][k], 1); //A modif Impérativement ATTENTION si on réduit par choix à 1 décimal on aura pas tout
-			std::cout << std::string((string_width - s.size()) / 2, ' ') << s << std::string((string_width - s.size()) / 2, ' ') << std::string(string_width, ' ');
+			std::string s = toStringWithDecimals(_tree[i][k], 1); //A modif Impérativement ATTENTION si on réduit par choix à 1 décimal on aura pas tout
+			int spaceBefore = (stringWidth - s.size()) / 2;
+			int spaceAfter = stringWidth -s.size() - spaceBefore;
+			std::cout << std::string(spaceBefore, ' ') << s << std::string(spaceAfter, ' ') << std::string(stringWidth, ' ');
 		}
 		std::cout << std::endl;
 	}

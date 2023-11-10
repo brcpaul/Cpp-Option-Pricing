@@ -5,9 +5,9 @@
 //  Created by Paul Bourcereau on 25/10/2023.
 //
 
-#include "header.h"
+#include "BinaryTree.h"
 void test_Antoine() {   
-    test_bt_1(7);
+    test_bt_1(17);
     //test_bt_2();
 }
 int main(int argc, const char * argv[]) {

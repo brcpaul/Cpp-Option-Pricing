@@ -103,7 +103,7 @@
     <ClCompile Include="final-project\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="final-project\header.h" />
+    <ClInclude Include="final-project\BinaryTree.h" />
     <ClInclude Include="final-project\BlackScholes.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -17,8 +17,8 @@ class BinaryTree {
 		void setDepth(int);
 		void setNode(int, int, T);
 		void display() const; 
-		int verif_i(int, int) const;
-		int max_digit() const;
+		int verifIndex(int, int) const;
+		int maxDigit() const;
 
 		//liens antoine (à ne pas effacer svp): 
 		//https://www.geeksforgeeks.org/vector-in-cpp-stl/
@@ -36,22 +36,22 @@ void test_bt_2();
 
 class CRRPricer {
 	private :
-		Option* _option = nullptr;
+		//Option* _option = nullptr;
 		int _depth;
-		double _asset_price;
+		double _assetPrice;
 		double _up;
 		double _down;
-		double _interest_rate;
+		double _interestRate;
 		BinaryTree<double> _tree;
 	public:
-		CRRPricer(Option* option, int depth, double asset_price, double up, double down, double interest_rate) :
-			_option{option}, _depth{ depth }, _asset_price{ asset_price }, _up{ up }, _down{ down }, _interest_rate{ interest_rate }{
+		CRRPricer(/*Option* option,*/ int depth, double assetPrice, double up, double down, double interestRate) :
+			/*_option{option},*/ _depth{depth}, _assetPrice{assetPrice}, _up{up}, _down{down}, _interestRate{interestRate} {
 			BinaryTree<double> _tree(depth);
 		}
 		void compute();
 		double get(int n, int i) { return _tree.getNode(n, i); }
-		double operator()(bool closed_form = false) {
-			if (closed_form) {
+		double operator()(bool closedForm = false) {
+			if (closedForm) {
 
 			}
 			else {

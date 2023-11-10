@@ -26,7 +26,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="final-project\header.h">
+    <ClInclude Include="final-project\BinaryTree.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="final-project\BlackScholes.h">
