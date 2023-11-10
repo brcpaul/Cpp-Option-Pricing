@@ -15,11 +15,7 @@ public:
     double getExpiry() {
         return expiry;
     }
-    virtual OptionType GetOptionType() const = 0; // Pure virtual method
 };
 
-enum class OptionType
-{
-    Call, Put
-};
+
 

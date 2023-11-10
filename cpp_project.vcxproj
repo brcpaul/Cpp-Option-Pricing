@@ -111,6 +111,7 @@
     <ClInclude Include="CallOption.h" />
     <ClInclude Include="final-project\BinaryTree.h" />
     <ClInclude Include="Option.h" />
+    <ClInclude Include="OptionType.h" />
     <ClInclude Include="PutOption.h" />
     <ClInclude Include="VanillaOption.h" />
   </ItemGroup>

@@ -1,15 +1,15 @@
 #pragma once
 #include "Option.h"
-
+#include "OptionType.h"
 
 class VanillaOption : public Option
 {
 
 private:
     double strike;
-    OptionType optionType;
 
 public:
+
     friend class BlackScholesPricer;
     VanillaOption(double exp, double str) : Option(exp), strike(str)
     {
@@ -18,9 +18,9 @@ public:
         }
         strike = str;
     }
-    enum OptionType GetOptionType() const override { //voir redaction enum
-        return optionType;
-    }
+    
+    virtual OptionType GetOptionType() const; //voir redaction enum
+    
 
     double GetStrike() {
         return strike;

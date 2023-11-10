@@ -56,5 +56,8 @@
     <ClInclude Include="BlackScholesPricer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="OptionType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -3,6 +3,7 @@
 #include <iostream>
 #include <cmath>
 #include "VanillaOption.h"
+#include "OptionType.h"
 
 
 class BlackScholesPricer {

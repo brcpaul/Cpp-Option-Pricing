@@ -1,5 +1,6 @@
 #pragma once
 #include "VanillaOption.h";
+#include "OptionType.h"
 
 class PutOption : public VanillaOption
 {
