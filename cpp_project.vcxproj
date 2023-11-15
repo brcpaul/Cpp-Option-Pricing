@@ -98,22 +98,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BlackScholesPricer.cpp" />
-    <ClCompile Include="CallOption.cpp" />
     <ClCompile Include="final-project\BinaryTree.cpp" />
+    <ClCompile Include="final-project\BlackScholesPricer.cpp" />
+    <ClCompile Include="final-project\CallOption.cpp" />
+    <ClCompile Include="final-project\CRRPricer.cpp" />
     <ClCompile Include="final-project\main.cpp" />
-    <ClCompile Include="Option.cpp" />
-    <ClCompile Include="PutOption.cpp" />
-    <ClCompile Include="VanillaOption.cpp" />
+    <ClCompile Include="final-project\Option.cpp" />
+    <ClCompile Include="final-project\PutOption.cpp" />
+    <ClCompile Include="final-project\VanillaOption.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BlackScholesPricer.h" />
-    <ClInclude Include="CallOption.h" />
     <ClInclude Include="final-project\BinaryTree.h" />
-    <ClInclude Include="Option.h" />
-    <ClInclude Include="OptionType.h" />
-    <ClInclude Include="PutOption.h" />
-    <ClInclude Include="VanillaOption.h" />
+    <ClInclude Include="final-project\BlackScholesPricer.h" />
+    <ClInclude Include="final-project\CallOption.h" />
+    <ClInclude Include="final-project\CRRPricer.h" />
+    <ClInclude Include="final-project\Option.h" />
+    <ClInclude Include="final-project\OptionType.h" />
+    <ClInclude Include="final-project\PutOption.h" />
+    <ClInclude Include="final-project\VanillaOption.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
