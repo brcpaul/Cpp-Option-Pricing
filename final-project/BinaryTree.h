@@ -11,7 +11,9 @@ class BinaryTree {
 		int _depth; //represents N
 		std::vector<std::vector<T>> _tree; //hold data of type T
 	public :
-		BinaryTree(int depth = 0) : _depth{ depth } { setDepth(depth); }
+		BinaryTree(int depth=0) : _depth{ depth } {
+			setDepth(depth); 
+		}
 		T getNode(int, int) const;
 		void setDepth(int);
 		void setNode(int, int, T);
@@ -50,6 +52,7 @@ void BinaryTree<T>::setDepth(int d) {
 /// <returns>0 or 1 (for true or false valid indices)</returns>
 template <typename T>
 int BinaryTree<T>::verifIndex(int iVect, int iSubVect) const {
+	
 	if (iVect >= 0 && iVect <= _depth && iSubVect >= 0 && iSubVect <= iVect)
 		//Conditions de vérifications taille vecteur (entre 0 et depth) et  taille sous vecteur (entre 0 et indice vecteur)
 	{
@@ -59,7 +62,7 @@ int BinaryTree<T>::verifIndex(int iVect, int iSubVect) const {
 		//Si condition non valide => raise une erreur (si en dehors taille vecteur et sous-vecteur)
 	{
 		//std::cerr << "Invalid indices !" << std::endl;
-		std::cerr << "Invalid indices at : --- (" << iVect << ";" << iSubVect << ") --- !" << std::endl;
+		std::cerr << "Invalid indices at : --- (" << iVect << ";" << iSubVect << ") --- !" <<_depth << std::endl;
 		return 0;
 	}
 }
@@ -152,7 +155,7 @@ void BinaryTree<T>::display() const {
 		std::cout << std::endl;
 	}
 	//Second display : 
-	int stringWidth = maxDigit();
+	int stringWidth = 5;//maxDigit();
 	std::cout << stringWidth << std::endl;
 	//std::cout << "maxDigit = " << stringWidth << std::endl;
 	for (int i = 0;i <= _depth;i++) {
@@ -186,31 +189,3 @@ void BinaryTree<T>::display() const {
 		std::cout << std::endl;
 	}
 }
-
-
-#pragma region TESTS BINARY TREE : 
-void test_bt_1(int depth) {
-	BinaryTree<double> tree(depth);
-	for (int i = 0; i <= depth;i++) {
-		for (int j = 0; j <= i; j++) {
-			tree.setNode(i, j, i * j * 0.23);
-		}
-	}
-	tree.display();
-}
-void test_bt_2() { //indices en dehors vecteur 
-	BinaryTree<double> tree(4);
-	for (int i = 0; i <= 5;i++) {//chgt ici !
-		for (int j = 0; j <= i; j++) {
-			tree.setNode(i, j, i * j * 0.23);
-		}
-	}
-	tree.display();
-}
-#pragma endregion 
-
-
-#pragma region TESTS BINARY TREE : 
-void test_bt_1(int);
-void test_bt_2();
-#pragma endregion 

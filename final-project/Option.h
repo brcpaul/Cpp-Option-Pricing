@@ -11,7 +11,7 @@ private:
 
 public:
     Option(double valeur) :expiry(valeur) {  }   // Constructor.
-    virtual double payoff(double);
+    virtual double payoff(double) const =0;
     double getExpiry() {
         return expiry;
     }

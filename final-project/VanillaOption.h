@@ -19,8 +19,9 @@ public:
         strike = str;
     }
     
-    virtual OptionType GetOptionType() const; //voir redaction enum
+    virtual OptionType GetOptionType() const=0; //voir redaction enum
     
+    //virtual double payoff(double price)=0;
 
     double GetStrike() {
         return strike;

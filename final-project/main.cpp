@@ -1,6 +1,6 @@
 #include <iostream>
 #include "BlackScholesPricer.h"
-//#include "CRRPricer.h"
+#include "CRRPricer.h"
 #include "BinaryTree.h"
 #include "CallOption.h"
 #include "PutOption.h"
@@ -22,18 +22,19 @@ int main() {
             BlackScholesPricer pricer2(&opt2, S0, r, sigma);
             std::cout << "BlackScholesPricer price=" << pricer2() << ", delta=" << pricer2.delta() << std::endl;
             std::cout << std::endl;
-
+            
             int N(150);
             double U = exp(sigma * sqrt(T / N)) - 1.0;
             double D = exp(-sigma * sqrt(T / N)) - 1.0;
             double R = exp(r * T / N) - 1.0;
-            /*
-            CRRPricer crr_pricer1(opt1, N, S0, U, D, R);
+            
+            CRRPricer crr_pricer1(&opt1, 150, S0, U, D, R);
             std::cout << "Calling CRR pricer with depth=" << N << std::endl;
             std::cout << std::endl;
             std::cout << "CRR pricer computed price=" << crr_pricer1() << std::endl;
-            std::cout << "CRR pricer explicit formula price=" << crr_pricer1(true) << std::endl;
+            /*std::cout << "CRR pricer explicit formula price=" << crr_pricer1(true) << std::endl;
             std::cout << std::endl;
+            /*
 
             CRRPricer crr_pricer2(&opt2, N, S0, U, D, R);
             std::cout << "Calling CRR pricer with depth=" << N << std::endl;
@@ -116,5 +117,6 @@ int main() {
         std::cout << std::endl << "*********************************************************" << std::endl;
     }
     */
+    system("pause");
 }
 
