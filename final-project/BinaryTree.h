@@ -26,7 +26,6 @@ class BinaryTree {
 		//https://cplusplus.com/reference/vector/vector/ (best)
 		//https://stackoverflow.com/questions/36802354/print-binary-tree-in-a-pretty-way-using-c
 		//https://stackoverflow.com/questions/40054600/searching-binary-tree-of-objects-for-a-single-class-member
-
 		//https://www.youtube.com/watch?v=B6eIfpcAXKk
 };
 

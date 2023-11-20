@@ -1,6 +1,7 @@
 #pragma once
 #include "BinaryTree.h"
 #include "Option.h"
+#include <math.h>
 
 class CRRPricer {
 private:
@@ -24,13 +25,7 @@ public:
 	}
 	void compute();
 	double get(int n, int i) { return _tree.getNode(n, i); }
-	double operator()(bool closedForm = false) {
-		if (closedForm) {
-
-		}
-		else {
-			compute();
-			return _tree.getNode(0, 0);
-		}
-	}
+	double operator()(bool closedForm = false);
+	double riskNeutralProbability();
+	int factoriel(int);
 };
