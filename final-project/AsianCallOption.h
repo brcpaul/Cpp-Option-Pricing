@@ -4,15 +4,16 @@
 
 class AsianCallOption : public AsianOption {
 	private:
-
+		AsianOption* aOption;
 	public:
+		
 		double strike;
-		AsianCallOption(std::vector<double>& timeSteps, double strike) : AsianOption(timeSteps) {}
+		AsianCallOption(AsianOption* aOption, std::vector<double>& timeSteps, double strike, double expiry) : aOption (aOption), AsianOption(timeSteps, expiry) {}
 
-		double payoff() const{
-			double price = payoffPath(AsianOption::getTimeSteps());
-			if (price >= strike) {
-				return price - strike;
+		double payoff() {
+			double price_smoothed = payoffPath(aOption->getTimeSteps());
+			if (price_smoothed >= strike) {
+				return price_smoothed - strike;
 			}
 			else return 0.0;
 		}

@@ -13,6 +13,7 @@ class AsianOption : public Option
 		std::vector<double> getTimeSteps() const {
 			return timeSteps;
 		}
+
 		bool isAsianOption() override{
 			return true;
 		}
