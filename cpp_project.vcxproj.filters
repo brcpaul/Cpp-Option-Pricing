@@ -39,6 +39,15 @@
     <ClCompile Include="final-project\VanillaOption.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="final-project\AsianOption.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="final-project\AsianCallOption.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="final-project\AsianPutOption.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="final-project\BinaryTree.h">
@@ -63,6 +72,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="final-project\VanillaOption.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="final-project\AsianOption.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="final-project\AsianCallOption.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="final-project\AsianPutOption.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
