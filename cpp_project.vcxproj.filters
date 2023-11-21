@@ -48,6 +48,12 @@
     <ClCompile Include="final-project\AsianPutOption.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="final-project\BlackScholesMCPricer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="final-project\MT.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="final-project\BinaryTree.h">
@@ -81,6 +87,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="final-project\AsianPutOption.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="final-project\MT.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="final-project\BlackScholesMCPricer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
