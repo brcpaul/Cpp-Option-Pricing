@@ -40,7 +40,7 @@ public:
             numberPaths++;
 
             //UPDATES the current estimate of the price of the option
-            //méthode existante dans la classe BS Pricer ?
+            //méthode existante dans la classe BS Pricer ? TEST
             double optionPrice; //= option->computeOptionPrice(path);
             currentEstimate = ((currentEstimate * numberPaths) + optionPrice) / (numberPaths + 1);
         }
