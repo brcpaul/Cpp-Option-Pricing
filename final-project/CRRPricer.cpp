@@ -20,7 +20,7 @@ void CRRPricer::compute() {
 
 	//_tree.display();
 
-	double q = (_riskFreeRate-_down)/(_up-_down);
+	double q = riskNeutralProbability();
 
 	for (int i = 0; i <= _depth; i++) {
 		_tree.setNode(_depth, i, _option->payoff(_tree.getNode(_depth, i)));
@@ -28,7 +28,7 @@ void CRRPricer::compute() {
 
 	for (int n = _depth-1; n >= 0;n--) {
 		for (int i = 0; i <= n; i++) {
-			double h = (q * _tree.getNode(n + 1, i + 1) + (1 - q) * _tree.getNode(n + 1, i))/(1+_riskFreeRate);
+			double h = (q * _tree.getNode(n + 1, i + 1) + (1 - q) * _tree.getNode(n + 1, i))/(1+_interest_rate);
 			_tree.setNode(n, i, h);
 		}
 	}
@@ -49,23 +49,23 @@ int CRRPricer::factoriel(int n) {
 /// </summary>
 /// <returns>The calculated risk-neutral probability</returns>
 double CRRPricer::riskNeutralProbability() {
-	return (_riskFreeRate - _down) / (_up - _down);
+	return (_interest_rate - _down) / (_up - _down);
 }
 /// <summary>
-/// CRRPricer method in order to calculate the option pricing using a closed-form formula
+/// CRRPricer method in order to calculate the option pricing (using a closed-form formula in case of flag)
 /// </summary>
 /// <param name="closedForm">Flag indicating whether to use the closed-form formula (default is false)</param>
 /// <returns>The calculated option price</returns>
 double CRRPricer::operator()(bool closedForm) {
 	if (closedForm) { //closed-form formula for pricing option :
-		double resultTot, resultInter;
+		double resultTot=0.0, resultInter;
 		for (int i = 0;i <= _depth;i++) {
 			resultInter = (factoriel(_depth) / (factoriel(i) * factoriel(_depth - i)));
 			resultInter *= std::pow(riskNeutralProbability(), i) * std::pow(1 - riskNeutralProbability(), _depth - i);
 			resultInter *= get(_depth, i); //H(N,i) = h(S(N,i)) at expiry date N = _depth
 			resultTot += resultInter;
 		}
-		return (1 / std::pow(1 + _riskFreeRate, _depth)) * resultTot;
+		return (1 / std::pow(1 + _interest_rate, _depth)) * resultTot;
 	}
 	else {
 		compute();

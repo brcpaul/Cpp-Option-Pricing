@@ -9,14 +9,14 @@ class VanillaOption : public Option
         double strike;
 
     public:
-
+        friend class CallOption;
+        friend class PutOption;
         friend class BlackScholesPricer;
         VanillaOption(double exp, double str) : Option(exp), strike(str)
         {
             if (exp < 0 || str < 0) {
                 std::cout << "Expiry and strike must be nonnegative.";
             }
-            strike = str;
         }
     
         virtual OptionType GetOptionType() const=0; //voir redaction enum
