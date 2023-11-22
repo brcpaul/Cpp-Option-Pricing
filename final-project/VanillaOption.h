@@ -16,7 +16,6 @@ class VanillaOption : public Option
             if (exp < 0 || str < 0) {
                 std::cout << "Expiry and strike must be nonnegative.";
             }
-            strike = str;
         }
     
         virtual OptionType GetOptionType() const=0; //voir redaction enum
