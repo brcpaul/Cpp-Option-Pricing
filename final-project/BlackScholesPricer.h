@@ -29,7 +29,7 @@ public:
 
     double operator()();
 
-    double delta()
+    double delta();
     
 };
 
