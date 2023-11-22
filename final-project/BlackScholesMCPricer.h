@@ -4,6 +4,7 @@
 #include <cmath>
 #include "Option.h"
 #include "MT.h"
+#include "AsianOption.h"
 #include <vector>
 
 class BlackScholesMCPricer {
@@ -12,18 +13,23 @@ private:
     double initialPrice;
     double interestRate;
     double volatility;
-    int numberPaths; //unsigned pour que ce soit que des valeurs non négatives
-    double currentEstimate;
+    int numberPaths = 0;
+    double currentEstimate = 0;
+    std::vector<double> timeStepsVect;
+    
+    
 
 public:
     BlackScholesMCPricer(Option* option, double initialPrice, double interestRate, double volatility)
-        : option(option), initialPrice(initialPrice), interestRate(interestRate), volatility(volatility), numberPaths(0), currentEstimate(0.0){}
+        : option(option), initialPrice(initialPrice), interestRate(interestRate), volatility(volatility) {}
 
     int getNbPaths() const { return numberPaths; }
 
     void generate(int nb_paths);
-
+     
     double operator()();
+
+    std::vector<double> confidence_interval();
 
     
 };
