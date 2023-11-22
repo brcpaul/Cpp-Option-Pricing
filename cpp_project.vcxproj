@@ -99,6 +99,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="final-project\AmericanCallOption.cpp" />
+    <ClCompile Include="final-project\AmericanOption.cpp" />
+    <ClCompile Include="final-project\AmericanPutOption.cpp" />
     <ClCompile Include="final-project\AsianCallOption.cpp" />
     <ClCompile Include="final-project\AsianOption.cpp" />
     <ClCompile Include="final-project\AsianPutOption.cpp" />
@@ -107,6 +110,9 @@
     <ClCompile Include="final-project\BlackScholesPricer.cpp" />
     <ClCompile Include="final-project\CallOption.cpp" />
     <ClCompile Include="final-project\CRRPricer.cpp" />
+    <ClCompile Include="final-project\DigitalCallOption.cpp" />
+    <ClCompile Include="final-project\DigitalOption.cpp" />
+    <ClCompile Include="final-project\DigitalPutOption.cpp" />
     <ClCompile Include="final-project\main.cpp" />
     <ClCompile Include="final-project\MT.cpp" />
     <ClCompile Include="final-project\Option.cpp" />
@@ -114,6 +120,9 @@
     <ClCompile Include="final-project\VanillaOption.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="final-project\AmericanCallOption.h" />
+    <ClInclude Include="final-project\AmericanOption.h" />
+    <ClInclude Include="final-project\AmericanPutOption.h" />
     <ClInclude Include="final-project\AsianCallOption.h" />
     <ClInclude Include="final-project\AsianOption.h" />
     <ClInclude Include="final-project\AsianPutOption.h" />
@@ -122,6 +131,9 @@
     <ClInclude Include="final-project\BlackScholesPricer.h" />
     <ClInclude Include="final-project\CallOption.h" />
     <ClInclude Include="final-project\CRRPricer.h" />
+    <ClInclude Include="final-project\DigitalCallOption.h" />
+    <ClInclude Include="final-project\DigitalOption.h" />
+    <ClInclude Include="final-project\DigitalPutOption.h" />
     <ClInclude Include="final-project\MT.h" />
     <ClInclude Include="final-project\Option.h" />
     <ClInclude Include="final-project\OptionType.h" />
