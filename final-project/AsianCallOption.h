@@ -4,11 +4,11 @@
 
 class AsianCallOption : public AsianOption {
 	private:
-		AsianOption* aOption;
+		AsianOption* asOption;
 	public:
 		
 		double strike;
-		AsianCallOption(AsianOption* aOption, std::vector<double>& timeSteps, double strike, double expiry) : aOption (aOption), AsianOption(timeSteps, expiry) {}
+		AsianCallOption(AsianOption* aOption, std::vector<double>& timeSteps, double strike, double expiry) : asOption (asOption), AsianOption(timeSteps, expiry) {}
 
 		double payoff();
 };
