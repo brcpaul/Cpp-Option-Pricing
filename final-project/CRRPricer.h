@@ -10,14 +10,14 @@ private:
 	double _assetPrice;
 	double _up;
 	double _down;
-	double _riskFreeRate;
+	double _interest_rate;
 	Option* _option;
 	BinaryTree<double> _tree;
 public:
 	CRRPricer(Option *option, int depth, double assetPrice, double up, double down, double riskFreeRate) :
-		_option{option}, _depth{ depth }, _assetPrice{ assetPrice }, _up{ up }, _down{ down }, _riskFreeRate{ riskFreeRate } {
+		_option{option}, _depth{ depth }, _assetPrice{ assetPrice }, _up{ up }, _down{ down }, _interest_rate{ riskFreeRate } {
 		//Checking for abitrage
-		if (!(_down < _riskFreeRate && _riskFreeRate < _up)) {
+		if (!(_down < _interest_rate && _interest_rate < _up)) {
 			std::cerr<< "The model doesn't verify D < R < U.";
 		}
 
