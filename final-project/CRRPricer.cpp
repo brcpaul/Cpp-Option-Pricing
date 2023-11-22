@@ -20,7 +20,7 @@ void CRRPricer::compute() {
 
 	//_tree.display();
 
-	double q = (_riskFreeRate-_down)/(_up-_down);
+	double q = riskNeutralProbability();
 
 	for (int i = 0; i <= _depth; i++) {
 		_tree.setNode(_depth, i, _option->payoff(_tree.getNode(_depth, i)));
@@ -52,7 +52,7 @@ double CRRPricer::riskNeutralProbability() {
 	return (_riskFreeRate - _down) / (_up - _down);
 }
 /// <summary>
-/// CRRPricer method in order to calculate the option pricing using a closed-form formula
+/// CRRPricer method in order to calculate the option pricing (using a closed-form formula in case of flag)
 /// </summary>
 /// <param name="closedForm">Flag indicating whether to use the closed-form formula (default is false)</param>
 /// <returns>The calculated option price</returns>

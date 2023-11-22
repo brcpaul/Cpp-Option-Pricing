@@ -54,6 +54,24 @@
     <ClCompile Include="final-project\MT.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="final-project\AmericanOption.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="final-project\AmericanCallOption.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="final-project\AmericanPutOption.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="final-project\DigitalOption.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="final-project\DigitalCallOption.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="final-project\DigitalPutOption.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="final-project\BinaryTree.h">
@@ -93,6 +111,24 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="final-project\BlackScholesMCPricer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="final-project\DigitalOption.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="final-project\AmericanOption.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="final-project\AmericanPutOption.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="final-project\AmericanCallOption.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="final-project\DigitalCallOption.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="final-project\DigitalPutOption.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

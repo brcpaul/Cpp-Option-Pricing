@@ -24,8 +24,8 @@ public:
 		 _tree.setDepth(depth);
 	}
 	void compute();
-	double get(int n, int i) { return _tree.getNode(n, i); }
-	double operator()(bool closedForm = false);
+	double get(int n, int i) const { return _tree.getNode(n, i); }
+	double operator()(bool closedForm = false) ;
 	double riskNeutralProbability();
 	int factoriel(int);
 };
