@@ -58,7 +58,7 @@ double CRRPricer::riskNeutralProbability() {
 /// <returns>The calculated option price</returns>
 double CRRPricer::operator()(bool closedForm) {
 	if (closedForm) { //closed-form formula for pricing option :
-		double resultTot, resultInter;
+		double resultTot=0.0, resultInter;
 		for (int i = 0;i <= _depth;i++) {
 			resultInter = (factoriel(_depth) / (factoriel(i) * factoriel(_depth - i)));
 			resultInter *= std::pow(riskNeutralProbability(), i) * std::pow(1 - riskNeutralProbability(), _depth - i);
