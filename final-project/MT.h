@@ -2,10 +2,7 @@
 #include <random>
 class MT {
 private:
-    std::mt19937 rng; // Instance unique de std::mt19937 // Générateur de nombres aléatoires Mersenne Twister
-
-    // Constructeur privé pour empêcher l'instanciation directe
-    MT();
+    std::mt19937 rng; // Instance unique de std::mt19937 // Générateur de nombres aléatoires Mersenne 
 
 public:
     // Fonction pour obtenir l'instance unique de la classe

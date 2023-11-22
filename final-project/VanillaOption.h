@@ -9,7 +9,8 @@ class VanillaOption : public Option
         double strike;
 
     public:
-
+        friend class CallOption;
+        friend class PutOption;
         friend class BlackScholesPricer;
         VanillaOption(double exp, double str) : Option(exp), strike(str)
         {

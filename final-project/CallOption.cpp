@@ -7,8 +7,8 @@ enum OptionType CallOption::GetOptionType() const {
 double CallOption::payoff(double price) const
 {
     // Implement the payoff calculation for a call option
-    if (price >= valeurStrike) //price = z
-        return price - valeurStrike;
+    if (price >= strike) //price = z
+        return price - strike;
     else
         return 0.0;
 }

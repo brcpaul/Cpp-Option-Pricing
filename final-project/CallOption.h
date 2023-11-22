@@ -9,9 +9,6 @@ public:
 
     enum OptionType GetOptionType() const override;
     
-
-    double valeurStrike = GetStrike(); //poser question prof pour accessibilité de strike et expiry
-
     double payoff(double price) const;
     
 
