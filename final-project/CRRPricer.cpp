@@ -72,3 +72,5 @@ double CRRPricer::operator()(bool closedForm) {
 		return _tree.getNode(0, 0);
 	}
 }
+
+
