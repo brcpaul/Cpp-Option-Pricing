@@ -4,6 +4,7 @@
 #include <cmath>
 #include "VanillaOption.h"
 #include "OptionType.h"
+#include "DigitalOption.h"
 
 
 class BlackScholesPricer {
@@ -31,5 +32,6 @@ public:
 
     double delta();
     
+    double priceDigitalOption(DigitalOption* digitalOption);
 };
 
