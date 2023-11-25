@@ -33,7 +33,11 @@ double BlackScholesPricer::delta() {
         return N(d1) - 1;
     }
 }
-
+/// <summary>
+/// Method to calculate the price of a digital option using the Black-Scholes formula
+/// </summary>
+/// <param name="digitalOption">A pointer to a digital option object</param>
+/// <returns>The calculated price of the digital option</returns>
 double BlackScholesPricer::priceDigitalOption(DigitalOption* digitalOption) {
     double d1 = (std::log(S /*/ digitalOption->getStrike()*/) + (r + (std::pow(sigma,2) / 2) * T) / (sigma * std::sqrt(T)));
     double d2 = d1 - sigma * std::sqrt(T);
