@@ -5,6 +5,8 @@
 #include "Option.h"
 #include "MT.h"
 #include "AsianOption.h"
+#include "VanillaOption.h"
+#include "BlackScholesPricer.h"
 #include <vector>
 
 class BlackScholesMCPricer {
@@ -15,6 +17,7 @@ private:
     double volatility;
     int numberPaths = 0;
     double currentEstimate = 0;
+    double priceSJ = 0;
     std::vector<double> timeStepsVect;
     
     
