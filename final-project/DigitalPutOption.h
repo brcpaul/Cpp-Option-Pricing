@@ -7,6 +7,6 @@ private:
 	DigitalOption* dOption;
 public:
 	DigitalPutOption(double exp, double strk) : DigitalOption(exp, strk){}
-	enum OptionType GetOptionType() const;
+	enum optionType GetOptionType() const;
 	double payoff(double) const;
 };

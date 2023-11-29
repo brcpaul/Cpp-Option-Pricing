@@ -2,11 +2,11 @@
 
 
 /// <summary>
-/// OptionType PutOption to associate the type Put at the Option
+/// optionType PutOption to associate the type Put at the Option
 /// </summary>
-enum OptionType PutOption::GetOptionType() const
+enum optionType PutOption::GetOptionType() const
 {
-    return OptionType::Put;
+    return optionType::Put;
 }
 
 

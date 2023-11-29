@@ -2,9 +2,9 @@
 /// <summary>
 /// Returns the type of the digital option : here returns Call
 /// </summary>
-enum OptionType DigitalCallOption::GetOptionType() const
+enum optionType DigitalCallOption::GetOptionType() const
 {
-    return OptionType::Call;
+    return optionType::Call;
 }
 /// <summary>
 /// Digital Call Option's method which caclulates the payoff of the option

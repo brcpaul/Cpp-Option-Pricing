@@ -2,9 +2,9 @@
 /// <summary>
 /// Returns the type of the digital option : here returns Put
 /// </summary>
-enum OptionType DigitalPutOption::GetOptionType() const
+enum optionType DigitalPutOption::GetOptionType() const
 {
-    return OptionType::Put;
+    return optionType::Put;
 }
 /// <summary>
 /// Digital Put Option's method which caclulates the payoff of the option

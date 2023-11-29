@@ -12,7 +12,7 @@ public:
     /// <summary>
     /// 
     /// </summary>
-    enum OptionType GetOptionType() const;
+    enum optionType GetOptionType() const;
     
     /// <summary>
     /// A QUOI CA SERT ?

@@ -6,7 +6,6 @@
 class CRRPricer {
 private:
 #pragma region attributes
-	Option* _option /*= nullptr*/;
 	int _depth;
 	double _assetPrice;
 	double _up;

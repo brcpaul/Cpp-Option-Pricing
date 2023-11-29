@@ -13,5 +13,5 @@ class DigitalOption : public Option {
 				std::cout << "Expiry and strike must be nonnegative.";
 			}
 		}
-		virtual OptionType GetOptionType() const = 0;
+		virtual optionType GetOptionType() const = 0;
 };

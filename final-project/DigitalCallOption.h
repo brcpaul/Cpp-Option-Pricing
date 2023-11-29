@@ -7,6 +7,6 @@ private:
 	DigitalOption* dOption;
 public:
 	DigitalCallOption(double exp, double strk) : DigitalOption(exp, strk){}
-	enum OptionType GetOptionType() const override;
+	enum optionType GetOptionType() const override;
 	double payoff(double) const;
 };

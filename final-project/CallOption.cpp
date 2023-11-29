@@ -1,10 +1,10 @@
 #include "CallOption.h"
 
 /// <summary>
-/// OptionType CallOption to associate the type Call at the Option
+/// optionType CallOption to associate the type Call at the Option
 /// </summary>
-enum OptionType CallOption::GetOptionType() const {
-    return OptionType::Call;
+enum optionType CallOption::GetOptionType() const {
+    return optionType::Call;
 }
 
 

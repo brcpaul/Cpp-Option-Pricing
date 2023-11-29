@@ -1,5 +1,5 @@
 #pragma once
-enum class OptionType
+enum class optionType
 {
     Call, Put
 };

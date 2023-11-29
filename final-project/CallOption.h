@@ -12,7 +12,7 @@ public:
     /// <summary>
     /// 
     /// </summary>
-    enum OptionType GetOptionType() const override;
+    enum optionType GetOptionType() const override;
     
 
     /// <summary>
