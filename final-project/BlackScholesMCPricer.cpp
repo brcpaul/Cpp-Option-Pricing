@@ -5,6 +5,7 @@
 #include "VanillaOption.h"
 #include "MT.h"
 #include <cmath>
+#include <vector>
 
 
 void BlackScholesMCPricer::generate(int nb_paths)
@@ -28,7 +29,8 @@ void BlackScholesMCPricer::generate(int nb_paths)
     double diffusion = exp(volatility * sqrt(timeStepsVect[0]) * MT::rand_norm());
 
     path = path * drift * diffusion;
-    
+    std::vector<double> lPaths;
+
     // Méthode pour générer des chemins
     for (int i = 0; i < nb_paths; ++i) {
         double path = initialPrice;
@@ -37,16 +39,21 @@ void BlackScholesMCPricer::generate(int nb_paths)
         double diffusion = exp(volatility * sqrt(timeStepsVect[i]) * MT::rand_norm());
 
         path = path * drift * diffusion;
-         
+        lPaths.push_back(path);
         // Mettre à jour le nombre de chemins générés
         numberPaths++;
 
         //Somme des valeurs du SJ
         sumPaths += path;
     }
-
+    
     //Ici on fait la moyenne des prix du SJ
     priceSJ = sumPaths / numberPaths;
+    double sommeCarre;
+    for (int i = 0; i < nb_paths; ++i) {
+        sommeCarre = sommeCarre + lPaths[i]* lPaths[i];
+    }
+    varEmp = (sommeCarre / nb_paths) - (priceSJ * priceSJ);
 }
 
 double BlackScholesMCPricer::operator()()
@@ -74,8 +81,8 @@ double BlackScholesMCPricer::operator()()
 
 std::vector<double> BlackScholesMCPricer::confidence_interval()
 {
-    double lowerBound = currentEstimate - 1.96*(volatility / std::sqrt(numberPaths)); 
-    double upperBound = currentEstimate + 1.96 * (volatility / std::sqrt(numberPaths)); 
+    double lowerBound = currentEstimate - 1.96 * (sqrt(varEmp) / std::sqrt(numberPaths));
+    double upperBound = currentEstimate + 1.96 * (sqrt(varEmp) / std::sqrt(numberPaths));
     return { lowerBound, upperBound };
 }
 

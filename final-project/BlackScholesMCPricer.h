@@ -18,6 +18,7 @@ private:
     int numberPaths = 0;
     double currentEstimate = 0;
     double priceSJ = 0;
+    double varEmp = 0; //variance empirique
     std::vector<double> timeStepsVect;
     
     
