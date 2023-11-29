@@ -18,6 +18,14 @@ double BlackScholesPricer::N(double x)
 /// </summary>
 /// <returns> the price of the option </returns>
 double BlackScholesPricer::operator()() {
+#pragma region attributes
+    double S = asset_price;
+    double K = option->_strike;
+    double T = option->getExpiry();
+    double r = interest_rate;
+    double sigma = volatility;
+#pragma endregion
+
     double d1 = (log(S / K) + (r + (sigma * sigma) / 2.0) * T) / (sigma * sqrt(T));
     double d2 = d1 - sigma * sqrt(T);
 
@@ -59,6 +67,14 @@ double BlackScholesPricer::delta() {
 /// <param name="digitalOption">A pointer to a digital option object</param>
 /// <returns>The calculated price of the digital option</returns>
 double BlackScholesPricer::priceDigitalOption(DigitalOption* digitalOption) {
+#pragma region attributes
+    double S = asset_price;
+    double K = option->_strike;
+    double T = option->getExpiry();
+    double r = interest_rate;
+    double sigma = volatility;
+#pragma endregion
+
     double d1 = (std::log(S /*/ digitalOption->getStrike()*/) + (r + (std::pow(sigma,2) / 2) * T) / (sigma * std::sqrt(T)));
     double d2 = d1 - sigma * std::sqrt(T);
     if (digitalOption->GetOptionType() == optionType::Call) {

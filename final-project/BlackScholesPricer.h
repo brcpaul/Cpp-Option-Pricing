@@ -23,13 +23,7 @@ class BlackScholesPricer
         BlackScholesPricer(VanillaOption* option, double asset_price, double interest_rate, double volatility)
             : option(option), asset_price(asset_price), interest_rate(interest_rate), volatility(volatility) {}
 
-    #pragma region attributes
-        double S = asset_price;
-        double K = option->_strike;
-        double T = option->getExpiry();
-        double r = interest_rate;
-        double sigma = volatility;
-    #pragma endregion
+    
 
  
         /// <summary>
