@@ -8,10 +8,10 @@ void CRRPricer::compute() {
 		for (int i = 0; i <= n; i++) {
 			double newValue;
 			if (i > 0) {
-				newValue = _tree.getNode(n - 1, i - 1) * (1+_up);
+				newValue = _tree.getNode(n - 1, i - 1) * (1 + _up);
 			}
 			else {
-				newValue = _tree.getNode(n - 1, i) * (1+_down);
+				newValue = _tree.getNode(n - 1, i) * (1 + _down);
 			}
 			_tree.setNode(n, i, newValue);
 		}
@@ -26,10 +26,17 @@ void CRRPricer::compute() {
 		_tree.setNode(_depth, i, _option->payoff(_tree.getNode(_depth, i)));
 	}
 
-	for (int n = _depth-1; n >= 0;n--) {
+	for (int n = _depth - 1; n >= 0;n--) {
 		for (int i = 0; i <= n; i++) {
-			double h = (q * _tree.getNode(n + 1, i + 1) + (1 - q) * _tree.getNode(n + 1, i))/(1+_interest_rate);
-			_tree.setNode(n, i, h);
+			double h = (q * _tree.getNode(n + 1, i + 1) + (1 - q) * _tree.getNode(n + 1, i)) / (1 + _interest_rate);
+			bool exercise = _option->payoff(_tree.getNode(n, i)) >= h;
+			if (_option->isAmericanOption()) {
+				_exercise.setNode(n, i, exercise);
+				_tree.setNode(n, i, exercise ? _option->payoff(_tree.getNode(n, i)) : h);
+			}
+			else {
+				_tree.setNode(n, i, h);
+			}
 		}
 	}
 }

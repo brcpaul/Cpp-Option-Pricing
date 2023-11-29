@@ -4,9 +4,14 @@
 
 class AmericanOption: public Option
 {
+private: 
+    double _strike;
 public:
     // AmericanOption constructor
-    AmericanOption(double expiry, double strike) : Option(expiry) {
+    friend class AmericanCallOption;
+    friend class AmericanPutOption;
+
+    AmericanOption(double expiry, double strike) : Option(expiry), _strike(strike) {
     } 
 
     /// <summary>

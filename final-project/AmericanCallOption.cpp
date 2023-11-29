@@ -1,13 +1,9 @@
 #include "AmericanCallOption.h";
-#include "Option.h"
+#include "AmericanOption.h"
 
-double AmericanCallOption::payoff(double price) {
-    return 0.0;
-    /*
-    if (price >= getStrike()) //price = z
-        return price - getStrike();
+double AmericanCallOption::payoff(double price) const {
+    if (price >= _strike) //price = z
+        return price - _strike;
     else
         return 0.0;
-        */
-
 }
