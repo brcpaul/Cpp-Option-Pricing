@@ -49,7 +49,7 @@ void BlackScholesMCPricer::generate(int nb_paths)
     
     //Ici on fait la moyenne des prix du SJ
     priceSJ = sumPaths / numberPaths;
-    double sommeCarre;
+    double sommeCarre = 0.0;
     for (int i = 0; i < nb_paths; ++i) {
         sommeCarre = sommeCarre + lPaths[i]* lPaths[i];
     }
