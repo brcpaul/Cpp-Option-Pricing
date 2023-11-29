@@ -1,10 +1,13 @@
 #pragma once
 #include "AmericanOption.h"
 
-class AmericanCallOption : public AmericanOption {
-public:
-	AmericanCallOption(double expiry, double strike) : AmericanOption(expiry, strike) {
-	};
+class AmericanCallOption : public AmericanOption 
+{
 
-	double payoff(double price);
+	public:
+		// AmericanCallOption constructor
+		AmericanCallOption(double expiry, double strike) : AmericanOption(expiry, strike) {
+		};
+
+		double payoff(double price);
 };

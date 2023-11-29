@@ -5,11 +5,25 @@
 class PutOption : public VanillaOption
 {
 public:
-    PutOption(double expiry, double strike) : VanillaOption(expiry, strike) {}
+    //CallOption classe constructor
+    PutOption(double _expiry, double _strike) : VanillaOption(_expiry, _strike) {}
 
+
+    /// <summary>
+    /// 
+    /// </summary>
     enum OptionType GetOptionType() const;
     
-    double valeurStrike = GetStrike();
+    /// <summary>
+    /// A QUOI CA SERT ?
+    /// </summary>
+    double valeurStrike = getStrike();
+
+    /// <summary>
+    /// Payoff function in order to calculate a double result 
+    /// </summary>
+    /// <param name="price"> a double </param>
+    /// <returns> a double </returns>
     double payoff(double price) const;
     
 };

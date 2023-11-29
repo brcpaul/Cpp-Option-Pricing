@@ -2,15 +2,26 @@
 #include "AsianOption.h"
 #include <vector>
 
-class AsianPutOption : public AsianOption {
-private:
-	AsianOption* asOption;
-public:
-	double strike;
-	
-	AsianPutOption(AsianOption* aOption, std::vector<double>& timeSteps, double strike, double expiry) : asOption(asOption), AsianOption(timeSteps, expiry) {}
+class AsianPutOption : public AsianOption 
+{
+	private:
+	#pragma region attributes
+		AsianOption* asOption;
+	#pragma endregion
 
-	double payoff();
+
+	public:
+		double _strike;
+	
+		// AsianPutOption Constructor
+		AsianPutOption(AsianOption* aOption, std::vector<double>& timeSteps, double _strike, double _expiry) : asOption(asOption), AsianOption(timeSteps, _expiry) {}
+
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
+		double payoff();
 	
 
 };

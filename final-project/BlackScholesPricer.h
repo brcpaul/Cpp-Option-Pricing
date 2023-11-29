@@ -7,31 +7,58 @@
 #include "DigitalOption.h"
 
 
-class BlackScholesPricer {
-private:
-    VanillaOption* option;
-    double assetPrice;
-    double interestRate;
-    double volatility;
+class BlackScholesPricer 
+{
 
-public:
-    BlackScholesPricer(VanillaOption* option, double assetPrice, double interestRate, double volatility)
-        : option(option), assetPrice(assetPrice), interestRate(interestRate), volatility(volatility) {}
+    private:
+    #pragma region attributes
+        VanillaOption* option;
+        double asset_price;
+        double interest_rate;
+        double volatility;
+    #pragma endregion
+
+    public:
+        // BlackScholes Pricer constructor
+        BlackScholesPricer(VanillaOption* option, double asset_price, double interest_rate, double volatility)
+            : option(option), asset_price(asset_price), interest_rate(interest_rate), volatility(volatility) {}
+
+    #pragma region attributes
+        double S = asset_price;
+        double K = option->_strike;
+        double T = option->getExpiry();
+        double r = interest_rate;
+        double sigma = volatility;
+    #pragma endregion
+
+ 
+        /// <summary>
+        /// Distribution function of the normal law
+        /// </summary>
+        /// <param name="x"> a double </param>
+        /// <returns> the value of the distribution function of the normal law </returns>
+        double N(double x);
 
 
-    double S = assetPrice;
-    double K = option->strike;
-    double T = option->getExpiry();
-    double r = interestRate;
-    double sigma = volatility;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns> the price of the option </returns>
+        double operator()();
 
-    //fonction de repartition de la loi normale
-    double N(double x);
 
-    double operator()();
-
-    double delta();
+        /// <summary>
+        /// Delta method to calculate the Delta of the option
+        /// </summary>
+        /// <returns> the Delta of the option </returns>
+        double delta();
     
-    double priceDigitalOption(DigitalOption* digitalOption);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="digitalOption"></param>
+        /// <returns></returns>
+        double priceDigitalOption(DigitalOption* digitalOption);
 };
 

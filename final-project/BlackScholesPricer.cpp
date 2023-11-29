@@ -1,10 +1,22 @@
 #include "BlackScholesPricer.h"
 
+
+/// <summary>
+/// Method to calculate the distribution of a normal law
+/// </summary>
+/// <param name="x"> a double </param>
+/// <returns> the distribution of a normal law </returns>
 double BlackScholesPricer::N(double x)
 {
     return 0.5 * (1 + std::erf(x / std::sqrt(2.0)));
 }
 
+
+
+/// <summary>
+/// BlackScholesPricer operator method to calculate the price of the option
+/// </summary>
+/// <returns> the price of the option </returns>
 double BlackScholesPricer::operator()() {
     double d1 = (log(S / K) + (r + (sigma * sigma) / 2.0) * T) / (sigma * sqrt(T));
     double d2 = d1 - sigma * sqrt(T);
@@ -17,11 +29,16 @@ double BlackScholesPricer::operator()() {
     }
 }
 
+
+/// <summary>
+/// BlackScholesPricer delta method to calculate the Dekta of the option
+/// </summary>
+/// <returns> the Delta of the option </returns>
 double BlackScholesPricer::delta() {
-    double S = assetPrice;
-    double K = option->strike;
+    double S = asset_price;
+    double K = option-> _strike;
     double T = option->getExpiry();
-    double r = interestRate;
+    double r = interest_rate;
     double sigma = volatility;
 
     double d1 = (log(S / K) + (r + (sigma * sigma) / 2.0) * T) / (sigma * sqrt(T));
@@ -33,6 +50,9 @@ double BlackScholesPricer::delta() {
         return N(d1) - 1;
     }
 }
+
+
+
 /// <summary>
 /// Method to calculate the price of a digital option using the Black-Scholes formula
 /// </summary>

@@ -5,10 +5,21 @@
 class CallOption : public VanillaOption
 {
 public:
-    CallOption(double expiry, double strike) : VanillaOption(expiry, strike) {} //meme nom de valeur ou non ?
+    //CallOption classe constructor
+    CallOption(double _expiry, double _strike) : VanillaOption(_expiry, _strike) {} 
 
+
+    /// <summary>
+    /// 
+    /// </summary>
     enum OptionType GetOptionType() const override;
     
+
+    /// <summary>
+    /// Payoff function in order to calculate a double result 
+    /// </summary>
+    /// <param name="price"> a double </param>
+    /// <returns> a double </returns>
     double payoff(double price) const;
     
 
