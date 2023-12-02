@@ -20,21 +20,44 @@ double BlackScholesPricer::N(double x)
 double BlackScholesPricer::operator()() {
 #pragma region attributes
     double S = asset_price;
-    double K = option->_strike;
-    double T = option->getExpiry();
+
     double r = interest_rate;
     double sigma = volatility;
-#pragma endregion
 
-    double d1 = (log(S / K) + (r + (sigma * sigma) / 2.0) * T) / (sigma * sqrt(T));
-    double d2 = d1 - sigma * sqrt(T);
+    if (vanilla) {
+        double K = ((VanillaOption*)option)->_strike;
+        double T = ((VanillaOption*)option)->getExpiry();
+        double d1 = (log(S / K) + (r + (sigma * sigma) / 2.0) * T) / (sigma * sqrt(T));
+        double d2 = d1 - sigma * sqrt(T);
 
-    if (option->GetOptionType() == optionType::Call) {
-        return S * N(d1) - K * std::exp(-r * T) * N(d2);
+        if (((VanillaOption*)option)->GetOptionType() == optionType::Call) {
+            return S * N(d1) - K * std::exp(-r * T) * N(d2);
+        }
+        else {
+            return -S * N(-d1) + K * std::exp(-r * T) * N(-d2);
+        }
     }
     else {
-        return -S * N(-d1) + K * std::exp(-r * T) * N(-d2);
+        double K = ((DigitalOption*)option)->_strike;
+        double T = ((DigitalOption*)option)->getExpiry();
+        double d1 = (std::log(S / K) + (r + (std::pow(sigma, 2) / 2) * T) / (sigma * std::sqrt(T)));
+        double d2 = d1 - sigma * std::sqrt(T);
+
+        if (((DigitalOption*)option)->GetOptionType() == optionType::Call) {
+            return S * N(d1) - K * std::exp(-r * T) * N(d2);
+        }
+        else {
+            //return -S * (1 - N(d1)) + K * std::exp(-r * T) * (1 - N(d2));
+            //by symmetry of the standard normal distribution :
+            //(1 - N(d)) == N(-d)
+            return -S * N(-d1) + K * std::exp(-r * T) * N(-d2);
+        }
+        //http://www.timworrall.com/fin-40008/bscholes.pdf for formulas
     }
+
+#pragma endregion
+
+
 }
 
 
@@ -44,47 +67,35 @@ double BlackScholesPricer::operator()() {
 /// <returns> the Delta of the option </returns>
 double BlackScholesPricer::delta() {
     double S = asset_price;
-    double K = option-> _strike;
-    double T = option->getExpiry();
     double r = interest_rate;
     double sigma = volatility;
+    //bool call; //true for call and false for put
+    if (vanilla) {
+        double K = ((VanillaOption*)option)->_strike;
+        double T = option->getExpiry();
+        double d1 = (log(S / K) + (r + (sigma * sigma) / 2.0) * T) / (sigma * sqrt(T));
 
-    double d1 = (log(S / K) + (r + (sigma * sigma) / 2.0) * T) / (sigma * sqrt(T));
-
-    if (option->GetOptionType() == optionType::Call) {
-        return N(d1);
+        if (((VanillaOption*)option)->GetOptionType() == optionType::Call) {
+            return N(d1);
+        }
+        else {
+            return N(d1) - 1;
+        }
     }
     else {
-        return N(d1) - 1;
+        //FORMULES A VERIF!!!
+        double K = ((DigitalOption*)option)->_strike;
+        double T = ((DigitalOption*)option)->getExpiry();
+        double d1 = (log(S / K) + (r + (std::pow(sigma,2)) / 2.0) * T) / (sigma * sqrt(T));
+        double d2 = d1 - sigma * sqrt(T);
+        double result = std::exp(-r * T * N(d2)) / (S * sigma * std::sqrt(T));
+        if (((DigitalOption*)option)->GetOptionType() == optionType::Call) {
+            return result;
+        }
+        else {
+            return result - 1;
+        }
+        //https://bookdown.org/maxime_debellefroid/MyBook/classic-options.html
+        //https://slideplayer.fr/slide/1158241/
     }
-}
-
-
-
-/// <summary>
-/// Method to calculate the price of a digital option using the Black-Scholes formula
-/// </summary>
-/// <param name="digitalOption">A pointer to a digital option object</param>
-/// <returns>The calculated price of the digital option</returns>
-double BlackScholesPricer::priceDigitalOption(DigitalOption* digitalOption) {
-#pragma region attributes
-    double S = asset_price;
-    double K = option->_strike;
-    double T = option->getExpiry();
-    double r = interest_rate;
-    double sigma = volatility;
-#pragma endregion
-
-    double d1 = (std::log(S /*/ digitalOption->getStrike()*/) + (r + (std::pow(sigma,2) / 2) * T) / (sigma * std::sqrt(T)));
-    double d2 = d1 - sigma * std::sqrt(T);
-    if (digitalOption->GetOptionType() == optionType::Call) {
-        return S * N(d1) - K * std::exp(-r * T) * N(d2);
-    }
-    else {
-        //return -S * (1 - N(d1)) + K * std::exp(-r * T) * (1 - N(d2));
-        //by symmetry of the standard normal distribution :
-        //(1 - N(d)) == N(-d)
-        return -S * N(-d1) + K * std::exp(-r * T) * N(-d2); 
-    }
-    //http://www.timworrall.com/fin-40008/bscholes.pdf for formulas
 }

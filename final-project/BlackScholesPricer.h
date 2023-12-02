@@ -12,19 +12,25 @@ class BlackScholesPricer
 
     private:
     #pragma region attributes
-        VanillaOption* option;
+        Option* option;
         double asset_price;
         double interest_rate;
         double volatility;
+        bool vanilla; //true for VanillaOption and false for DigitalOption
     #pragma endregion
 
     public:
         // BlackScholes Pricer constructor
         BlackScholesPricer(VanillaOption* option, double asset_price, double interest_rate, double volatility)
-            : option(option), asset_price(asset_price), interest_rate(interest_rate), volatility(volatility) {}
+            : option(option), asset_price(asset_price), interest_rate(interest_rate), volatility(volatility) {
+            vanilla = true;
+        }
 
     
-
+        BlackScholesPricer(DigitalOption* option, double asset_price, double interest_rate, double volatility)
+            : option(option), asset_price(asset_price), interest_rate(interest_rate), volatility(volatility) {
+            vanilla = false;
+        }
  
         /// <summary>
         /// Distribution function of the normal law
@@ -46,13 +52,5 @@ class BlackScholesPricer
         /// </summary>
         /// <returns> the Delta of the option </returns>
         double delta();
-    
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="digitalOption"></param>
-        /// <returns></returns>
-        double priceDigitalOption(DigitalOption* digitalOption);
 };
 
