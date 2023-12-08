@@ -18,7 +18,7 @@ void CRRPricer::compute() {
 	}
 
 
-	//_tree.display();
+	_tree.display();
 
 	double q = riskNeutralProbability();
 
