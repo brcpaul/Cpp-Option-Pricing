@@ -33,7 +33,7 @@ public:
      
     double operator()();
 
-    std::vector<double> confidence_interval();
+    std::vector<double> confidenceInterval();
 
     
 };

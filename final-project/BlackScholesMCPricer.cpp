@@ -79,7 +79,7 @@ double BlackScholesMCPricer::operator()()
     return currentEstimate;
 }
 
-std::vector<double> BlackScholesMCPricer::confidence_interval()
+std::vector<double> BlackScholesMCPricer::confidenceInterval()
 {
     double lowerBound = currentEstimate - 1.96 * (sqrt(varEmp) / std::sqrt(numberPaths));
     double upperBound = currentEstimate + 1.96 * (sqrt(varEmp) / std::sqrt(numberPaths));
