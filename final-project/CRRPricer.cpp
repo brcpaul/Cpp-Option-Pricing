@@ -40,19 +40,6 @@ void CRRPricer::compute() {
 		}
 	}
 }
-/// <summary>
-/// CRRPRicer factorial function in order to calculate the factorial of an integer
-/// </summary>
-/// <param name="n">an integer</param>
-/// <returns>The calculated factorial of the interger n</returns>
-/*
-int CRRPricer::factoriel(int n) {
-	std::cout << n << std::endl;
-	if (n == 0 || n == 1) {
-		return 1;
-	}
-	return n * factoriel(n - 1);
-}*/
 
 /// <summary>
 /// CRRPricer function to calculate the risk-neutral probability 
@@ -62,7 +49,13 @@ double CRRPricer::riskNeutralProbability() {
 	return (_interest_rate - _down) / (_up - _down);
 }
 
-int combinaison(int n, int k) {
+/// <summary>
+/// CRRPricer function to calculate the combination of n choose k
+/// </summary>
+/// <param name="n">Total number of elements</param>
+/// <param name="k">Number of elements to choose</param>
+/// <returns>Integer representing the combination of n choose k</returns>
+int combination(int n, int k) {
 	int prod = 1;
 	for (int i = 1;i <= k;i++) {
 		prod *= (n + 1 - i) / i;
@@ -80,7 +73,7 @@ double CRRPricer::operator()(bool closedForm) {
 		double resultTot=0.0, resultInter;
 		std::cout << "Closed" << std::endl;
 		for (int i = 0;i <= _depth;i++) {
-			resultInter = combinaison(_depth, i);
+			resultInter = combination(_depth, i);
 			//(factoriel(_depth) / (factoriel(i) * factoriel(_depth - i)));
 			resultInter *= std::pow(riskNeutralProbability(), i) * std::pow(1 - riskNeutralProbability(), _depth - i);
 			resultInter *= get(_depth, i); //H(N,i) = h(S(N,i)) at expiry date N = _depth
@@ -94,10 +87,3 @@ double CRRPricer::operator()(bool closedForm) {
 		return _tree.getNode(0, 0);
 	}
 }
-
-
-
-
-
-
-
