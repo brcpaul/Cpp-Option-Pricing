@@ -11,7 +11,8 @@ class AsianOption : public Option
 
 	public:
 		// AsianOption Constructor
-		AsianOption(std::vector<double>& timeSteps, double expiry) : Option(expiry){}
+		//AsianOption(std::vector<double>& timeSteps, double expiry) : Option(expiry) {} pouquoi le & ?
+		AsianOption(std::vector<double> timeSteps, double expiry) : Option(expiry){}
 
 		/// <summary>
 		/// 
@@ -25,5 +26,7 @@ class AsianOption : public Option
 		/// </summary>
 		/// <returns> a boolean </returns>
 		bool isAsianOption() override;
+
+		double payoffPath(std::vector<double>) const;
 		
 };

@@ -10,35 +10,43 @@
 
 void BlackScholesMCPricer::generate(int nb_paths)
 {    
-    
+    //timeStepsVect =     
     if (option->isAsianOption())
     {
         timeStepsVect = ((AsianOption*)option)->getTimeSteps();
     }
     else
     {
-        timeStepsVect; //ici on définit le vecteur time steps d'une option européenne --> juste 2 time steps
+        timeStepsVect = {0,1}; //ici on définit le vecteur time steps d'une option européenne --> juste 2 time steps
     }
     
     
-    // calcul de S_t0
-    double path = initialPrice;
-    double sumPaths = 0;
-    // Formule de Black-Scholes pour générer des chemins
-    double drift = exp((interestRate - 0.5 * volatility * volatility) * timeStepsVect[0]);
-    double diffusion = exp(volatility * sqrt(timeStepsVect[0]) * MT::rand_norm());
-
-    path = path * drift * diffusion;
+    
     std::vector<double> lPaths;
+    double sumPaths = 0;
 
     // Méthode pour générer des chemins
     for (int i = 0; i < nb_paths; ++i) {
+        //de k=1 à n
+        // calcul de S_t0
         double path = initialPrice;
         // Formule de Black-Scholes pour générer des chemins
-        double drift = exp((interestRate - 0.5 * volatility * volatility) * timeStepsVect[i]);
-        double diffusion = exp(volatility * sqrt(timeStepsVect[i]) * MT::rand_norm());
+        double drift = exp((interestRate - 0.5 * volatility * volatility) * timeStepsVect[0]); //A VERIFIER
+        double diffusion = exp(volatility * sqrt(timeStepsVect[0]) * MT::rand_norm());
 
         path = path * drift * diffusion;
+       
+
+        for (int k = 1; k < timeStepsVect.size(); k++) {
+
+            double path = initialPrice;
+            // Formule de Black-Scholes pour générer des chemins
+            double drift = exp((interestRate - 0.5 * volatility * volatility) * timeStepsVect[k]);
+            double diffusion = exp(volatility * sqrt(timeStepsVect[k]) * MT::rand_norm());
+
+            path = path * drift * diffusion;
+        }
+               
         lPaths.push_back(path);
         // Mettre à jour le nombre de chemins générés
         numberPaths++;

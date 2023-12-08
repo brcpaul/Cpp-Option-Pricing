@@ -7,11 +7,11 @@
 #include "CRRPricer.h"
 #include "BinaryTree.h"
 
-
-int main() {
+int main()
+{
     {
 
-        double S0(95.), K(100.), T(0.5), r(0.02), sigma(0.2);
+        double S0(100), K(101), T(5), r(0.01), sigma(0.1);
         CallOption opt1(T, K);
         PutOption opt2(T, K);
 
@@ -26,10 +26,10 @@ int main() {
             std::cout << "BlackScholesPricer price=" << pricer2() << ", delta=" << pricer2.delta() << std::endl;
             std::cout << std::endl;
 
-            int N(150);
-            double U = exp(sigma * sqrt(T / N)) - 1.0;
-            double D = exp(-sigma * sqrt(T / N)) - 1.0;
-            double R = exp(r * T / N) - 1.0;
+            int N(5);
+            double U = 0.05;//exp(sigma * sqrt(T / N)) - 1.0;
+            double D = -0.045;//exp(-sigma * sqrt(T / N)) - 1.0;
+            double R = 0.01;//exp(r * T / N) - 1.0;
 
             CRRPricer crr_pricer1(&opt1, N, S0, U, D, R);
             std::cout << "Calling CRR pricer with depth=" << N << std::endl;

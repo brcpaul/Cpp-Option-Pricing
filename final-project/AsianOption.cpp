@@ -1,4 +1,5 @@
 #include "AsianOption.h"
+#include "Option.h"
 
 
 /// <summary>
@@ -17,4 +18,17 @@ std::vector<double> AsianOption::getTimeSteps() const {
 bool AsianOption::isAsianOption() {
 	return true;
 }
+
+
+
+double AsianOption::payoffPath(std::vector<double> h) const{
+	double sum = 0;
+	for (int i = 0; i < h.size(); i++)
+	{
+		sum += h[i];
+	}
+	return payoff(sum / h.size());
+}
+
+
 
