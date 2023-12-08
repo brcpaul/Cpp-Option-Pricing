@@ -55,8 +55,11 @@ public:
 	bool getExercise(int n, int i) const { return _exercise.getNode(n, i); }
 	double operator()(bool closedForm = false) ;
 	double riskNeutralProbability();
-	int factoriel(int);
+	//int factoriel(int);
 };
+
+
+//int combinaison(int, int);
 
 
 

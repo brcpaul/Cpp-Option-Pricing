@@ -13,7 +13,7 @@ enum optionType DigitalCallOption::GetOptionType() const
 /// <returns>The payoff of the digital call option</returns>
 double DigitalCallOption::payoff(double price) const
 {
-    /*if (strk >= price)
-        return 1.0;*/
+    if (price >= _strike)
+        return 1.0;
     return 0.0;
 }

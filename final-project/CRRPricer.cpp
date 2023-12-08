@@ -45,12 +45,15 @@ void CRRPricer::compute() {
 /// </summary>
 /// <param name="n">an integer</param>
 /// <returns>The calculated factorial of the interger n</returns>
+/*
 int CRRPricer::factoriel(int n) {
+	std::cout << n << std::endl;
 	if (n == 0 || n == 1) {
 		return 1;
 	}
 	return n * factoriel(n - 1);
-}
+}*/
+
 /// <summary>
 /// CRRPricer function to calculate the risk-neutral probability 
 /// </summary>
@@ -58,6 +61,17 @@ int CRRPricer::factoriel(int n) {
 double CRRPricer::riskNeutralProbability() {
 	return (_interest_rate - _down) / (_up - _down);
 }
+
+int combinaison(int n, int k) {
+	if (k > n) {
+		return 0;
+	}
+	if (n == 0 || n == k) {
+		return 1;
+	}
+	return combinaison(n - 1, k - 1) + combinaison(n - 1, k);
+}
+
 /// <summary>
 /// CRRPricer method in order to calculate the option pricing (using a closed-form formula in case of flag)
 /// </summary>
@@ -67,7 +81,8 @@ double CRRPricer::operator()(bool closedForm) {
 	if (closedForm) { //closed-form formula for pricing option :
 		double resultTot=0.0, resultInter;
 		for (int i = 0;i <= _depth;i++) {
-			resultInter = (factoriel(_depth) / (factoriel(i) * factoriel(_depth - i)));
+			resultInter = combinaison(_depth, i);
+			//(factoriel(_depth) / (factoriel(i) * factoriel(_depth - i)));
 			resultInter *= std::pow(riskNeutralProbability(), i) * std::pow(1 - riskNeutralProbability(), _depth - i);
 			resultInter *= get(_depth, i); //H(N,i) = h(S(N,i)) at expiry date N = _depth
 			resultTot += resultInter;
@@ -79,5 +94,10 @@ double CRRPricer::operator()(bool closedForm) {
 		return _tree.getNode(0, 0);
 	}
 }
+
+
+
+
+
 
 

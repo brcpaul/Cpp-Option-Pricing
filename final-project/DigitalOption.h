@@ -15,5 +15,5 @@ class DigitalOption : public Option {
 			}
 		}
 		virtual optionType GetOptionType() const = 0;
-		double getStrike() { return _strike; }
+		//double getStrike() { return _strike; }
 };

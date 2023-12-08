@@ -2,9 +2,9 @@
 #include "DigitalOption.h"
 #include "OptionType.h"
 
-class DigitalPutOption : DigitalOption {
+class DigitalPutOption : public DigitalOption {
 private:
-	DigitalOption* dOption;
+	//DigitalOption* dOption;
 public:
 	DigitalPutOption(double exp, double strk) : DigitalOption(exp, strk){}
 	enum optionType GetOptionType() const;
