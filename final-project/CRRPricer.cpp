@@ -63,13 +63,11 @@ double CRRPricer::riskNeutralProbability() {
 }
 
 int combinaison(int n, int k) {
-	if (k > n) {
-		return 0;
+	int prod = 1;
+	for (int i = 1;i <= k;i++) {
+		prod *= (n + 1 - i) / i;
 	}
-	if (n == 0 || n == k) {
-		return 1;
-	}
-	return combinaison(n - 1, k - 1) + combinaison(n - 1, k);
+	return prod;
 }
 
 /// <summary>
@@ -80,6 +78,7 @@ int combinaison(int n, int k) {
 double CRRPricer::operator()(bool closedForm) {
 	if (closedForm) { //closed-form formula for pricing option :
 		double resultTot=0.0, resultInter;
+		std::cout << "Closed" << std::endl;
 		for (int i = 0;i <= _depth;i++) {
 			resultInter = combinaison(_depth, i);
 			//(factoriel(_depth) / (factoriel(i) * factoriel(_depth - i)));
@@ -90,6 +89,7 @@ double CRRPricer::operator()(bool closedForm) {
 		return (1 / std::pow(1 + _interest_rate, _depth)) * resultTot;
 	}
 	else {
+		std::cout << "Open" << std::endl;
 		compute();
 		return _tree.getNode(0, 0);
 	}
