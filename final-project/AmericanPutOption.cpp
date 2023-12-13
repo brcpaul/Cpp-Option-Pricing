@@ -2,9 +2,7 @@
 #include "AmericanOption.h"
 
 double AmericanPutOption::payoff(double price) const {
-    if (price >= _strike) //price = z
-        return price - _strike;
-    else
-        return 0.0;
-
+    if (_strike >= price)
+        return _strike - price;
+    return 0.0;
 }

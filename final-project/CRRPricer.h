@@ -14,6 +14,7 @@ private:
 	Option* _option;
 	BinaryTree<double> _tree;
 	BinaryTree<bool> _exercise;
+	void computeTree();
 #pragma endregion
 
 public:
@@ -39,14 +40,28 @@ public:
 
 	CRRPricer(Option* option, int depth, double assetPrice, double r, double volatility)
 	{
+		_up = exp(volatility * sqrt(option->getExpiry() / depth)) - 1.0;
+		_down = exp(-volatility * sqrt(option->getExpiry() / depth)) - 1.0;
+		_interest_rate = exp(r * option->getExpiry() / depth) - 1.0;
+		_assetPrice = assetPrice;
+		_option = option;
+		_depth = depth;
 
+		std::cout << depth << " " << _down << " " << _interest_rate << " " << _up << std::endl;
 
-		double up = exp(volatility * sqrt(option->getExpiry() / depth)) - 1.0;
-		double down = exp(-volatility * sqrt(option->getExpiry() / depth)) - 1.0;
-		double riskFreeRate = exp(r * option->getExpiry() / depth) - 1.0;
+		if (!(_down < _interest_rate && _interest_rate < _up)) {
+			std::cerr << "The model doesn't verify D < R < U." << _down << _interest_rate << _up << std::endl;
+		}
 
+		_tree.setDepth(depth);
 
-		CRRPricer(option, depth, assetPrice, up, down, riskFreeRate);
+		//Checking if it is an AsianOption
+		if (_option->isAsianOption()) {
+			throw std::runtime_error("Asian options are not supported by CRRPricer.");
+		}
+		if (_option->isAmericanOption()) {
+			_exercise.setDepth(depth);
+		}
 	}
 
 	

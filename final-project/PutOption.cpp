@@ -17,7 +17,7 @@ enum optionType PutOption::GetOptionType() const
 /// <returns> the payoff of the function </returns>
 double PutOption::payoff(double price) const
 {
-    if (valeurStrike >= price)
-        return valeurStrike - price;
+    if (_strike >= price)
+        return _strike - price;
     else return 0.0;
 }

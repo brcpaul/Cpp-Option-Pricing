@@ -2,14 +2,6 @@
 #include "Option.h"
 
 
-AsianOption::AsianOption(std::vector<double> timeSteps):timeSteps(timeSteps), Option(timeSteps[timeSteps.back()])
-{
-	timeSteps = { 0.0 };
-} 
-
-
-
-
 /// <summary>
 /// 
 /// </summary>

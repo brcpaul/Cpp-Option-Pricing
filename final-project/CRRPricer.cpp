@@ -1,8 +1,7 @@
 #include <iostream>;
 #include "CRRPricer.h"
-void CRRPricer::compute() {
 
-	// Fill in the tree 
+void CRRPricer::computeTree() {
 	_tree.setNode(0, 0, _assetPrice);
 	for (int n = 1; n <= _depth;n++) {
 		for (int i = 0; i <= n; i++) {
@@ -16,9 +15,11 @@ void CRRPricer::compute() {
 			_tree.setNode(n, i, newValue);
 		}
 	}
-
-
-	_tree.display();
+}
+void CRRPricer::compute() {
+	
+	computeTree();
+	//_tree.display();
 
 	double q = riskNeutralProbability();
 
@@ -29,8 +30,8 @@ void CRRPricer::compute() {
 	for (int n = _depth - 1; n >= 0;n--) {
 		for (int i = 0; i <= n; i++) {
 			double h = (q * _tree.getNode(n + 1, i + 1) + (1 - q) * _tree.getNode(n + 1, i)) / (1 + _interest_rate);
-			bool exercise = _option->payoff(_tree.getNode(n, i)) >= h;
 			if (_option->isAmericanOption()) {
+				bool exercise = _option->payoff(_tree.getNode(n, i)) > h;
 				_exercise.setNode(n, i, exercise);
 				_tree.setNode(n, i, exercise ? _option->payoff(_tree.getNode(n, i)) : h);
 			}
@@ -39,6 +40,8 @@ void CRRPricer::compute() {
 			}
 		}
 	}
+
+	//_tree.display();
 }
 
 /// <summary>
@@ -56,9 +59,10 @@ double CRRPricer::riskNeutralProbability() {
 /// <param name="k">Number of elements to choose</param>
 /// <returns>Integer representing the combination of n choose k</returns>
 int combination(int n, int k) {
-	int prod = 1;
+	if (k == 0) return 1;
+	double prod = 1;
 	for (int i = 1;i <= k;i++) {
-		prod *= (n + 1 - i) / i;
+		prod *= 1.0*(n - (k-i)) / i;
 	}
 	return prod;
 }
@@ -70,19 +74,18 @@ int combination(int n, int k) {
 /// <returns>The calculated option price</returns>
 double CRRPricer::operator()(bool closedForm) {
 	if (closedForm) { //closed-form formula for pricing option :
+		computeTree();
 		double resultTot=0.0, resultInter;
-		std::cout << "Closed" << std::endl;
 		for (int i = 0;i <= _depth;i++) {
 			resultInter = combination(_depth, i);
-			//(factoriel(_depth) / (factoriel(i) * factoriel(_depth - i)));
 			resultInter *= std::pow(riskNeutralProbability(), i) * std::pow(1 - riskNeutralProbability(), _depth - i);
-			resultInter *= get(_depth, i); //H(N,i) = h(S(N,i)) at expiry date N = _depth
+			double price = _option->payoff(_tree.getNode(_depth, i));
+			resultInter *= price;
 			resultTot += resultInter;
 		}
-		return (1 / std::pow(1 + _interest_rate, _depth)) * resultTot;
+		return (1.0 / std::pow(1.0 + _interest_rate, _depth)) * resultTot;
 	}
 	else {
-		std::cout << "Open" << std::endl;
 		compute();
 		return _tree.getNode(0, 0);
 	}

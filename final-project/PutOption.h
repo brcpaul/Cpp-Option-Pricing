@@ -13,11 +13,6 @@ public:
     /// 
     /// </summary>
     enum optionType GetOptionType() const;
-    
-    /// <summary>
-    /// A QUOI CA SERT ?
-    /// </summary>
-    double valeurStrike = getStrike();
 
     /// <summary>
     /// Payoff function in order to calculate a double result 

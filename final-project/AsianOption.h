@@ -7,13 +7,12 @@ class AsianOption : public Option
 	private :
 	#pragma region attributes
 		std::vector<double> timeSteps;
-		Option* option;
 	#pragma endregion
 
 	public:
 		// AsianOption Constructor
 		//AsianOption(std::vector<double>& timeSteps, double expiry) : Option(expiry) {} pouquoi le & ?
-		AsianOption(std::vector<double> timeSteps);
+		AsianOption(std::vector<double> timeSteps, double expiry) : Option(expiry){}
 
 		/// <summary>
 		/// 
