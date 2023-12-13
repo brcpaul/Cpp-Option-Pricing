@@ -20,6 +20,7 @@ private:
     double priceSJ = 0;
     double varEmp = 0; //variance empirique
     std::vector<double> timeStepsVect;
+    double finalPrice = 0;
     
     
 
