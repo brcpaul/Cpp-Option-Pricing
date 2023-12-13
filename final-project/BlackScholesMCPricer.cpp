@@ -17,7 +17,10 @@ void BlackScholesMCPricer::generate(int nb_paths)
     }
     else
     {
-        timeStepsVect = {0,1}; //ici on définit le vecteur time steps d'une option européenne --> juste 2 time steps
+        //timeStepsVect[timeStepsVect.size()]
+        
+        timeStepsVect = {0, option->getExpiry()}; //à la place du 1 : maturity à récup de ?
+        //ici on définit le vecteur time steps d'une option européenne --> juste 2 time steps
     }
     
     
@@ -26,7 +29,7 @@ void BlackScholesMCPricer::generate(int nb_paths)
     double sumPaths = 0;
 
     // Méthode pour générer des chemins
-    for (int i = 0; i < nb_paths; ++i) {
+    for (int i = 0; i < nb_paths; i++) {
         //de k=1 à n
         // calcul de S_t0
         double path = initialPrice;

@@ -15,7 +15,8 @@ class AsianPutOption : public AsianOption
 	
 		//asOption(asOption),
 		// AsianPutOption Constructor
-		AsianPutOption(std::vector<double>& timeSteps, double _strike) : AsianOption(timeSteps, _strike) {}
+		AsianPutOption(std::vector<double>& timeSteps, double strike) : AsianOption(timeSteps), _strike(strike) {}
+		
 
 
 		/// <summary>

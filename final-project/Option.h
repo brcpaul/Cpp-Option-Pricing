@@ -13,6 +13,7 @@ class Option {
 
 
     public:
+
         //Constructor of the abstract class Option
         Option(double value) : _expiry(value) {  }
 

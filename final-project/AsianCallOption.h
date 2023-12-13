@@ -17,7 +17,7 @@ class AsianCallOption : public AsianOption
 		//AsianCallOption Constructor
 		//AsianCallOption(AsianOption* aOption, std::vector<double>& timeSteps, double _strike, double _expiry) : asOption(asOption), AsianOption(timeSteps, _expiry) {}
 		//deux arguments pour la classe AsianCallOption, et le pointeur à droite
-		AsianCallOption(std::vector<double>& timeSteps, double _strike) : AsianOption(timeSteps, _strike) {}
+		AsianCallOption(std::vector<double>& timeSteps, double strike) : AsianOption(timeSteps), _strike(strike) {}
 
 		/// <summary>
 		/// 
