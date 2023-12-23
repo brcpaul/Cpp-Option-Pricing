@@ -28,6 +28,8 @@ class BinaryTree {
 		//https://stackoverflow.com/questions/40054600/searching-binary-tree-of-objects-for-a-single-class-member
 		//https://www.youtube.com/watch?v=B6eIfpcAXKk
 };
+template <typename T> std::string toStringWithDecimals(T, int);
+
 
 /// <summary> 
 /// The setter method of BinaryTree (setDepth(int) a setter for _depth) that resizes _tree and allocate / deallocate properly the vectors in tree
