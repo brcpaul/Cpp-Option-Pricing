@@ -24,99 +24,69 @@ void BlackScholesMCPricer::generate(int nb_paths)
     }
     
     
-    
-    std::vector<double> lPaths;
-    double sumPaths = 0;
-    double sumPrices = 0;
     double avgPrice = 0;
-    double payOff = 0;
+    double payoff = 0;
+    double sumPayoffs = 0;
     
 
     // Méthode pour générer des chemins
     for (int i = 0; i < nb_paths; ++i) {
         //de k=1 à n
         // calcul de S_t0
-        double path = initialPrice;
+        double pathPrice = initialPrice;
+        
+        std::vector<double> prices;
+
+        pathPrice = pathPrice * exp((interestRate - 0.5 * volatility * volatility)*timeStepsVect[0] + volatility*sqrt(timeStepsVect[0])*MT::rand_norm());
+        prices.push_back(pathPrice);
         // Formule de Black-Scholes pour générer des chemins
-        double drift = exp((interestRate - 0.5 * volatility * volatility) * timeStepsVect[0]); //A VERIFIER
-        double diffusion = exp(volatility * sqrt(timeStepsVect[0]) * MT::rand_norm());
-
-        path = path * drift * diffusion;
-        sumPrices = path;
-
         for (int k = 1; k < timeStepsVect.size(); k++) {
 
-            
             // Formule de Black-Scholes pour générer des chemins
-            double drift = exp((interestRate - 0.5 * volatility * volatility) * timeStepsVect[k]);
-            double diffusion = exp(volatility * sqrt(timeStepsVect[k]) * MT::rand_norm());
+            double drift = exp((interestRate - 0.5 * volatility * volatility) * (timeStepsVect[k] - timeStepsVect[k - 1]));
+            double diffusion = exp(volatility * sqrt(timeStepsVect[k] - timeStepsVect[k - 1]) * MT::rand_norm());
 
-            path = path * drift * diffusion;
-            sumPrices += path;
-           
-
+            pathPrice = pathPrice * drift * diffusion;
+            prices.push_back(pathPrice);
         }
 
-        //sumPrices = sumPrices / numberPaths;
-
-        //lPaths.push_back(path);
-        
-        // Mettre à jour le nombre de chemins générés
-        numberPaths++;
-
-        //Somme des valeurs du SJ
-        sumPaths += path;
-        avgPrice = sumPrices / timeStepsVect.size(); //on divise par le nombre de temps
-        payOff = option->payoff(avgPrice);
-        lPaths.push_back(payOff);
+        payoff = option->payoffPath(prices);
+        payoffs.push_back(payoff);
+        std::cout << payoff << std::endl;
     }
     
     
     //Ici on fait la moyenne des prix du SJ
     //priceSJ = sumPaths / numberPaths;
 
-    for (int j = 0; j < lPaths.size(); j++)
+    for (int j = 0; j < payoffs.size(); j++)
     {
-        finalPrice += lPaths[j] ;  //pour actualiser
+        sumPayoffs += payoffs[j] ;  //pour actualiser
     }
-    finalPrice = finalPrice * exp(-interestRate * option->getExpiry());
 
-    std::cout << finalPrice;
+    double price = exp(-interestRate * option->getExpiry())*1/payoffs.size()*sumPayoffs;
     
-    double sommeCarre = 0.0;
-    for (int i = 0; i < nb_paths; ++i) {
-        sommeCarre = sommeCarre + lPaths[i]* lPaths[i];
+    double squaredSum = 0.0;
+    for (int i = 0; i < payoffs.size(); ++i) {
+        squaredSum = squaredSum + pow(payoffs[i],2);
     }
-    varEmp = (sommeCarre / nb_paths) - (priceSJ * priceSJ);
+    empVar = squaredSum/payoffs.size() - sumPayoffs / payoffs.size();
+    numberPaths = payoffs.size();
+    finalPrice = price;
 }
 
 double BlackScholesMCPricer::operator()()
 {
     if (numberPaths == 0) {
-        throw std::invalid_argument(" numberPaths doit être différent de 0.");
+        //throw std::invalid_argument(" numberPaths doit être différent de 0."); // commenté car cause bug, à régler
     }
-    //UPDATES the current estimate of the price of the option
-    double S = priceSJ;
-    double K = ((VanillaOption*)option)->getStrike();
-    double T = option->getExpiry();
-    double r = interestRate;
-    double sigma = volatility;
-    double d1 = (log(S / K) + (r + (sigma * sigma) / 2.0) * T) / (sigma * sqrt(T));
-    double d2 = d1 - sigma * sqrt(T);
-
-    if (((VanillaOption*)option)->GetOptionType() == optionType::Call) {
-        currentEstimate = S * ((BlackScholesPricer*)option)->N(d1) - K * std::exp(-r * T) * ((BlackScholesPricer*)option)->N(d2);
-    }
-    else {
-        currentEstimate= -S * ((BlackScholesPricer*)option)->N(-d1) + K * std::exp(-r * T) * ((BlackScholesPricer*)option)->N(-d2);
-    }
-    return currentEstimate;
+    return finalPrice;
 }
 
 std::vector<double> BlackScholesMCPricer::confidenceInterval()
 {
-    double lowerBound = finalPrice - 1.96 * (sqrt(varEmp) / std::sqrt(numberPaths));
-    double upperBound = finalPrice + 1.96 * (sqrt(varEmp) / std::sqrt(numberPaths));
+    double lowerBound = finalPrice - 1.96 * (sqrt(empVar) / std::sqrt(numberPaths));
+    double upperBound = finalPrice + 1.96 * (sqrt(empVar) / std::sqrt(numberPaths));
     return { lowerBound, upperBound };
 }
 

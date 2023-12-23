@@ -18,11 +18,10 @@ private:
     int numberPaths = 0;
     double currentEstimate = 0;
     double priceSJ = 0;
-    double varEmp = 0; //variance empirique
+    std::vector<double> payoffs;
+    double empVar = 0; //variance empirique
     std::vector<double> timeStepsVect;
     double finalPrice = 0;
-    
-    
 
 public:
     BlackScholesMCPricer(Option* option, double initialPrice, double interestRate, double volatility)

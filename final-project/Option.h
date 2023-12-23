@@ -57,7 +57,7 @@ class Option {
         /// <param name="h"> vector double </param>
         /// <returns> The payoff of the function h in the first element </returns>
         virtual double payoffPath(std::vector<double> h) { //h(St1,..., Stm)
-            return payoff(h[0]);
+            return payoff(h.back());
         }
 
 };
