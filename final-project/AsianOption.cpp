@@ -7,7 +7,7 @@
 /// </summary>
 /// <returns> vector<double> </returns>
 std::vector<double> AsianOption::getTimeSteps() const {
-	return timeSteps;
+	return _timeSteps;
 }
 
 
@@ -21,7 +21,7 @@ bool AsianOption::isAsianOption() {
 
 
 
-double AsianOption::payoffPath(std::vector<double> h) const{
+double AsianOption::payoffPath(std::vector<double> h) {
 	double sum = 0;
 	for (int i = 0; i < h.size(); i++)
 	{

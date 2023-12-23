@@ -52,7 +52,6 @@ void BlackScholesMCPricer::generate(int nb_paths)
 
         payoff = option->payoffPath(prices);
         payoffs.push_back(payoff);
-        std::cout << payoff << std::endl;
     }
     
     

@@ -10,12 +10,10 @@ class AsianPutOption : public AsianOption
 	#pragma endregion
 
 
-	public:
-		double _strike;
-	
+	public:	
 		//asOption(asOption),
 		// AsianPutOption Constructor
-		AsianPutOption(std::vector<double>& timeSteps, double _strike) : AsianOption(timeSteps, _strike) {}
+		AsianPutOption(std::vector<double> timeSteps, double strike) : AsianOption(timeSteps, strike) {}
 
 
 		/// <summary>
@@ -23,6 +21,5 @@ class AsianPutOption : public AsianOption
 		/// </summary>
 		/// <returns></returns>
 		double payoff(double) const override;
-	
 
 };

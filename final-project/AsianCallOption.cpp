@@ -1,13 +1,5 @@
 #include "AsianCallOption.h"
 
-double AsianCallOption::payoffPath(std::vector<double> h) const {
-	double sumPrices = 0.0;
-	for (int i = 0;i < h.size();i++) {
-		sumPrices += h[i];
-	}
-	return payoff(sumPrices / h.size());
-}
-
 /// <summary>
 /// AsianCallOption function in order to calculate the payoff for an asian call option
 /// </summary>

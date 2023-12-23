@@ -44,7 +44,6 @@ int main()
             if (pricer->getNbPaths() % 1000 == 0) {
                 std::cout << (*pricer)() << std::endl;
             }
-            break;
         } while (ci[1] - ci[0] > 1e-2);
         std::cout << "nb samples: " << pricer->getNbPaths() << std::endl;
         std::cout << "price: " << (*pricer)() << std::endl << std::endl;
