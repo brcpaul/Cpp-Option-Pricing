@@ -1,4 +1,5 @@
 #include "DigitalCallOption.h"
+
 /// <summary>
 /// Returns the type of the digital option : here returns Call
 /// </summary>
@@ -6,6 +7,7 @@ enum optionType DigitalCallOption::GetOptionType() const
 {
     return optionType::Call;
 }
+
 /// <summary>
 /// Digital Call Option's method which caclulates the payoff of the option
 /// </summary>

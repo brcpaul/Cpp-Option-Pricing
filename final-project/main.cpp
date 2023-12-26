@@ -4,39 +4,33 @@
 #include "PutOption.h"
 #include "DigitalCallOption.h"
 #include "DigitalPutOption.h"
-#include "AsianCallOption.h"
-#include "AsianPutOption.h"
-#include "BlackScholesMCPricer.h"
+#include "AmericanCallOption.h"
+#include "AmericanPutOption.h"
+#include "CRRPricer.h"
 
 
 int main() {
-    double S0(95.), K(100.), T(0.5), r(0.02), sigma(0.2);
+    double S0(100), K(101.), T(5), r(0.01), sigma(0.1);
     std::vector<Option*> opt_ptrs;
     opt_ptrs.push_back(new CallOption(T, K));
     opt_ptrs.push_back(new PutOption(T, K));
     opt_ptrs.push_back(new DigitalCallOption(T, K));
     opt_ptrs.push_back(new DigitalPutOption(T, K));
+    opt_ptrs.push_back(new AmericanCallOption(T, K));
+    opt_ptrs.push_back(new AmericanPutOption(T, K));
 
-    std::vector<double> fixing_dates;
-    for (int i = 1; i <= 5; i++) {
-        fixing_dates.push_back(0.1 * i);
-    }
-    opt_ptrs.push_back(new AsianCallOption(fixing_dates, K));
-    opt_ptrs.push_back(new AsianPutOption(fixing_dates, K));
-
-    std::vector<double> ci;
-    BlackScholesMCPricer* pricer;
+    CRRPricer* pricer;
 
     for (auto& opt_ptr : opt_ptrs) {
-        pricer = new BlackScholesMCPricer(opt_ptr, S0, r, sigma);
-        do {
-            pricer->generate(10);
-            ci = pricer->confidenceInterval();
-        } while (ci[1] - ci[0] > 1e-2);
-        std::cout << "nb samples: " << pricer->getNbPaths() << std::endl;
+        pricer = new CRRPricer(opt_ptr, 5, S0,0.05,-0.045,0.01);
+
+        pricer->compute();
+
         std::cout << "price: " << (*pricer)() << std::endl << std::endl;
         delete pricer;
         delete opt_ptr;
+
     }
-    system("wait");
+
+    system("pause");
 }

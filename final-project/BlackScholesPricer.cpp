@@ -42,7 +42,6 @@ double BlackScholesPricer::operator()() {
         else {
             return std::exp(-r * T) - std::exp(-r * T) * N(d2);
         }
-        //http://www.timworrall.com/fin-40008/bscholes.pdf for formulas
     }
 }
 

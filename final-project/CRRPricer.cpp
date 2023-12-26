@@ -24,9 +24,13 @@ CRRPricer::CRRPricer(Option* option, int depth, double assetPrice, double up, do
 
 CRRPricer::CRRPricer(Option* option, int depth, double assetPrice, double r, double volatility)
 {
-	_up = exp(volatility * sqrt(option->getExpiry() / depth)) - 1.0;
+	/*_up = exp(volatility * sqrt(option->getExpiry() / depth)) - 1.0;
 	_down = exp(-volatility * sqrt(option->getExpiry() / depth)) - 1.0;
-	_interest_rate = exp(r * option->getExpiry() / depth) - 1.0;
+	_interest_rate = exp(r * option->getExpiry() / depth) - 1.0;*/
+	double h = option->getExpiry() / depth;
+	_up = exp((r + volatility* volatility/ 2) * h + volatility * sqrt(h)) - 1;
+	_down = exp((r + volatility * volatility / 2) * h - volatility * sqrt(h)) - 1;
+	_interest_rate = exp(r * h) - 1;
 	_assetPrice = assetPrice;
 	_option = option;
 	_depth = depth;
