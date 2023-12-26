@@ -20,15 +20,11 @@ class BlackScholesPricer
 
     public:
         // BlackScholes Pricer constructor
-        BlackScholesPricer(VanillaOption* option, double asset_price, double interest_rate, double volatility)
-            : option(option), asset_price(asset_price), interest_rate(interest_rate), volatility(volatility) {
-            vanilla = true;
-        }
+            BlackScholesPricer(VanillaOption* option, double asset_price, double interest_rate, double volatility)
+                : option(option), asset_price(asset_price), interest_rate(interest_rate), volatility(volatility), vanilla(true) {}
 
-        BlackScholesPricer(DigitalOption* option, double asset_price, double interest_rate, double volatility)
-            : option(option), asset_price(asset_price), interest_rate(interest_rate), volatility(volatility) {
-            vanilla = false;
-        }
+            BlackScholesPricer(DigitalOption* option, double asset_price, double interest_rate, double volatility)
+            : option(option), asset_price(asset_price), interest_rate(interest_rate), volatility(volatility), vanilla(false) {}
  
         /// <summary>
         /// 

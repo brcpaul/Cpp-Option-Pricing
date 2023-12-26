@@ -11,7 +11,7 @@ enum optionType DigitalCallOption::GetOptionType() const
 /// </summary>
 /// <param name="price">The current price of the underlying asset</param>
 /// <returns>The payoff of the digital call option</returns>
-double DigitalCallOption::payoff(double price) const
+double DigitalCallOption::payoff(double price)
 {
     if (price >= _strike)
         return 1.0;

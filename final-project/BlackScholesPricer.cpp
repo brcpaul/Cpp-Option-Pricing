@@ -18,7 +18,6 @@ double N(double x)
 /// </summary>
 /// <returns> the price of the option </returns>
 double BlackScholesPricer::operator()() {
-#pragma region attributes
     double S = asset_price;
 
     double r = interest_rate;

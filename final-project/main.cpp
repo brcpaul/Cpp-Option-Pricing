@@ -25,7 +25,7 @@ int main()
         fixing_dates.push_back(0.1 * i);
     }
     opt_ptrs.push_back(new AsianCallOption(fixing_dates, K));
-    //opt_ptrs.push_back(new AsianPutOption(fixing_dates, K));
+    opt_ptrs.push_back(new AsianPutOption(fixing_dates, K));
 
 
     std::cout << "K: " << K << std::endl << std::endl;
@@ -52,7 +52,6 @@ int main()
     }
 
     system("pause");
-
 }
 
     /*

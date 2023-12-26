@@ -24,7 +24,6 @@ class Option {
             return _expiry;
         }
 
-
         /// <summary>
         /// Boolean function to initialize the type of the chosen Option.
         /// At the beginning the Option is not an asian option.
@@ -49,7 +48,7 @@ class Option {
         /// </summary>
         /// <param name=""></param>
         /// <returns></returns>
-        virtual double payoff(double) const =0; // h(S_t)
+        virtual double payoff(double) =0; // h(S_t)
         
         /// <summary>
         /// Payoff method to calculate the payoff of the function h in the first element

@@ -20,6 +20,6 @@ class AsianPutOption : public AsianOption
 		/// 
 		/// </summary>
 		/// <returns></returns>
-		double payoff(double) const override;
+		double payoff(double) override;
 
 };

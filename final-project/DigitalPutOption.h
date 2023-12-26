@@ -8,5 +8,5 @@ private:
 public:
 	DigitalPutOption(double exp, double strk) : DigitalOption(exp, strk){}
 	enum optionType GetOptionType() const override;
-	double payoff(double) const;
+	double payoff(double);
 };

@@ -27,7 +27,7 @@ class VanillaOption : public Option
         VanillaOption(double exp, double str) : Option(exp), _strike(str)
         {
             if (exp < 0 || str < 0) {
-                std::cout << "Expiry and strike must be nonnegative.";
+                throw std::runtime_error("Expiry and strike must be nonnegative.");
             }
         }
     

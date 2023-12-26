@@ -21,10 +21,9 @@ public:
 	CRRPricer(Option *option, int depth, double assetPrice, double up, double down, double riskFreeRate) :
 		_option{option}, _depth{ depth }, _assetPrice{ assetPrice }, _up{ up }, _down{ down }, _interest_rate{ riskFreeRate } {
 		//Checking for abitrage
-		std::cout << depth<<" " << _down << " " << _interest_rate << " " << _up << std::endl;
 
 		if (!(_down < _interest_rate && _interest_rate < _up)) {
-			std::cerr<< "The model doesn't verify D < R < U." << _down << _interest_rate << _up << std::endl;
+			throw std::runtime_error("The model doesn't verify D < R < U.");
 		}
 
 		 _tree.setDepth(depth);
@@ -47,10 +46,8 @@ public:
 		_option = option;
 		_depth = depth;
 
-		std::cout << depth << " " << _down << " " << _interest_rate << " " << _up << std::endl;
-
 		if (!(_down < _interest_rate && _interest_rate < _up)) {
-			std::cerr << "The model doesn't verify D < R < U." << _down << _interest_rate << _up << std::endl;
+			throw std::runtime_error("The model doesn't verify D < R < U.");
 		}
 
 		_tree.setDepth(depth);
@@ -66,9 +63,9 @@ public:
 
 	
 	void compute();
-	double get(int n, int i) const { return _tree.getNode(n, i); }
-	bool getExercise(int n, int i) const { return _exercise.getNode(n, i); }
-	double operator()(bool closedForm = false) ;
+	double get(int n, int i) { return _tree.getNode(n, i); }
+	bool getExercise(int n, int i) { return _exercise.getNode(n, i); }
+	double operator()(bool closedForm);
 	double riskNeutralProbability();
 };
 

@@ -10,5 +10,5 @@ class AmericanCallOption : public AmericanOption
 
 		};
 
-		double payoff(double price) const;
+		double payoff(double price);
 };

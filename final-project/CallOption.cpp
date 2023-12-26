@@ -13,7 +13,7 @@ enum optionType CallOption::GetOptionType() const {
 /// </summary>
 /// <param name="price"> a double : price of the option, (price = z in the statement) </param>
 /// <returns> the payoff of the function </returns>
-double CallOption::payoff(double price) const
+double CallOption::payoff(double price)
 {
     if (price >= _strike) 
         return price - _strike;

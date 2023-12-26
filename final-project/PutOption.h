@@ -19,6 +19,6 @@ public:
     /// </summary>
     /// <param name="price"> a double </param>
     /// <returns> a double </returns>
-    double payoff(double price) const;
+    double payoff(double price);
     
 };

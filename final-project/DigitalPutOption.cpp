@@ -11,7 +11,7 @@ enum optionType DigitalPutOption::GetOptionType() const
 /// </summary>
 /// <param name="price">The current price of the underlying asset</param>
 /// <returns>The payoff of the digital put option</returns>
-double DigitalPutOption::payoff(double price) const
+double DigitalPutOption::payoff(double price)
 {
     if (price <= _strike)
         return 1.0;

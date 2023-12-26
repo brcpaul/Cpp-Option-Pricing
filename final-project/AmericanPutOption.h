@@ -10,5 +10,5 @@ public:
 
 	};
 
-	double payoff(double price) const;
+	double payoff(double price);
 };

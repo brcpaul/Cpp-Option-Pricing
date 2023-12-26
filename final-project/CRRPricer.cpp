@@ -72,7 +72,7 @@ int combination(int n, int k) {
 /// </summary>
 /// <param name="closedForm">Flag indicating whether to use the closed-form formula (default is false)</param>
 /// <returns>The calculated option price</returns>
-double CRRPricer::operator()(bool closedForm) {
+double CRRPricer::operator()(bool closedForm=false) {
 	if (closedForm) { //closed-form formula for pricing option :
 		computeTree();
 		double resultTot=0.0, resultInter;
