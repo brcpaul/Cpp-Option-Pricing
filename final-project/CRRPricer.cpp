@@ -21,7 +21,7 @@ void CRRPricer::compute() {
 	computeTree();
 	//_tree.display();
 
-	double q = riskNeutralProbability();
+	double q = riskNeutralProbability;
 
 	for (int i = 0; i <= _depth; i++) {
 		_tree.setNode(_depth, i, _option->payoff(_tree.getNode(_depth, i)));
@@ -42,14 +42,6 @@ void CRRPricer::compute() {
 	}
 
 	//_tree.display();
-}
-
-/// <summary>
-/// CRRPricer function to calculate the risk-neutral probability 
-/// </summary>
-/// <returns>The calculated risk-neutral probability</returns>
-double CRRPricer::riskNeutralProbability() {
-	return (_interest_rate - _down) / (_up - _down);
 }
 
 /// <summary>
@@ -78,7 +70,7 @@ double CRRPricer::operator()(bool closedForm=false) {
 		double resultTot=0.0, resultInter;
 		for (int i = 0;i <= _depth;i++) {
 			resultInter = combination(_depth, i);
-			resultInter *= std::pow(riskNeutralProbability(), i) * std::pow(1 - riskNeutralProbability(), _depth - i);
+			resultInter *= std::pow(riskNeutralProbability, i) * std::pow(1 - riskNeutralProbability, _depth - i);
 			double price = _option->payoff(_tree.getNode(_depth, i));
 			resultInter *= price;
 			resultTot += resultInter;

@@ -15,6 +15,7 @@ private:
 	BinaryTree<double> _tree;
 	BinaryTree<bool> _exercise;
 	void computeTree();
+	double riskNeutralProbability;
 #pragma endregion
 
 public:
@@ -35,6 +36,8 @@ public:
 		 if (_option->isAmericanOption()) {
 			 _exercise.setDepth(depth);
 		 }
+
+		 riskNeutralProbability = (_interest_rate - _down) / (_up - _down);
 	}
 
 	CRRPricer(Option* option, int depth, double assetPrice, double r, double volatility)
@@ -59,14 +62,14 @@ public:
 		if (_option->isAmericanOption()) {
 			_exercise.setDepth(depth);
 		}
+
+		riskNeutralProbability = (_interest_rate - _down) / (_up - _down);
 	}
 
-	
 	void compute();
 	double get(int n, int i) { return _tree.getNode(n, i); }
 	bool getExercise(int n, int i) { return _exercise.getNode(n, i); }
 	double operator()(bool closedForm);
-	double riskNeutralProbability();
 };
 
 
