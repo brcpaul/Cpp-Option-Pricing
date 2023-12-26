@@ -53,7 +53,9 @@ void BlackScholesMCPricer::generate(int nb_paths)
 
     double price = exp(-interestRate * option->getExpiry())*1/numberPaths*sumPayoffs;
     
-    empVar = sumPayoffsSquared/numberPaths - sumPayoffs / numberPaths;
+    empVar = sumPayoffsSquared/numberPaths - pow(sumPayoffs / numberPaths, 2);
+    empVar = empVar * numberPaths / (numberPaths - 1);
+
     finalPrice = price;
 }
 
@@ -67,8 +69,8 @@ double BlackScholesMCPricer::operator()()
 
 std::vector<double> BlackScholesMCPricer::confidenceInterval()
 {
-    double lowerBound = finalPrice - 1.96 * (sqrt(empVar) / std::sqrt(numberPaths));
-    double upperBound = finalPrice + 1.96 * (sqrt(empVar) / std::sqrt(numberPaths));
+    double lowerBound = exp(-interestRate * option->getExpiry()) * (sumPayoffs / numberPaths - 1.96 * (sqrt(empVar) / std::sqrt(numberPaths)));
+    double upperBound = exp(-interestRate * option->getExpiry()) * (sumPayoffs / numberPaths + 1.96 * (sqrt(empVar) / std::sqrt(numberPaths)));
     return { lowerBound, upperBound };
 }
 

@@ -19,57 +19,14 @@ private:
 #pragma endregion
 
 public:
-	CRRPricer(Option *option, int depth, double assetPrice, double up, double down, double riskFreeRate) :
-		_option{option}, _depth{ depth }, _assetPrice{ assetPrice }, _up{ up }, _down{ down }, _interest_rate{ riskFreeRate } {
-		//Checking for abitrage
+	CRRPricer(Option* option, int depth, double assetPrice, double up, double down, double riskFreeRate);
 
-		if (!(_down < _interest_rate && _interest_rate < _up)) {
-			throw std::runtime_error("The model doesn't verify D < R < U.");
-		}
-
-		 _tree.setDepth(depth);
-
-		 //Checking if it is an AsianOption
-		 if (_option->isAsianOption()) {
-			 throw std::runtime_error("Asian options are not supported by CRRPricer.");
-		 }
-		 if (_option->isAmericanOption()) {
-			 _exercise.setDepth(depth);
-		 }
-
-		 riskNeutralProbability = (_interest_rate - _down) / (_up - _down);
-	}
-
-	CRRPricer(Option* option, int depth, double assetPrice, double r, double volatility)
-	{
-		_up = exp(volatility * sqrt(option->getExpiry() / depth)) - 1.0;
-		_down = exp(-volatility * sqrt(option->getExpiry() / depth)) - 1.0;
-		_interest_rate = exp(r * option->getExpiry() / depth) - 1.0;
-		_assetPrice = assetPrice;
-		_option = option;
-		_depth = depth;
-
-		if (!(_down < _interest_rate && _interest_rate < _up)) {
-			throw std::runtime_error("The model doesn't verify D < R < U.");
-		}
-
-		_tree.setDepth(depth);
-
-		//Checking if it is an AsianOption
-		if (_option->isAsianOption()) {
-			throw std::runtime_error("Asian options are not supported by CRRPricer.");
-		}
-		if (_option->isAmericanOption()) {
-			_exercise.setDepth(depth);
-		}
-
-		riskNeutralProbability = (_interest_rate - _down) / (_up - _down);
-	}
+	CRRPricer(Option* option, int depth, double assetPrice, double r, double volatility);
 
 	void compute();
 	double get(int n, int i) { return _tree.getNode(n, i); }
 	bool getExercise(int n, int i) { return _exercise.getNode(n, i); }
-	double operator()(bool closedForm);
+	double operator()(bool closedForm=false);
 };
 
 

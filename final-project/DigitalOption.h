@@ -9,11 +9,7 @@ class DigitalOption : public Option {
 		friend class DigitalPutOption;
 		friend class DigitalCallOption; 
 		friend class BlackScholesPricer;
-		DigitalOption(double exp, double strk) : Option(exp),_strike{strk}{ //"exp" for expiry and "strk" for strike
-			if (exp < 0 || strk < 0) { //a verif
-				std::cout << "Expiry and strike must be nonnegative.";
-			}
-		}
+		DigitalOption(double exp, double strk);
 		virtual optionType GetOptionType() const = 0;
 		//double getStrike() { return _strike; }
 };

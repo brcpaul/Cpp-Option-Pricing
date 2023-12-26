@@ -2,8 +2,7 @@
 #include "AmericanOption.h"
 
 double AmericanCallOption::payoff(double price) {
-    if (price >= _strike) //price = z
+    if (price >= _strike) 
         return price - _strike;
-    else
-        return 0.0;
+    return 0.0;
 }

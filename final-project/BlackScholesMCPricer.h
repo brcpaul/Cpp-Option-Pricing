@@ -19,13 +19,13 @@ private:
     double priceSJ = 0;
     double sumPayoffs = 0;
     double sumPayoffsSquared = 0;
-    double empVar = 0; //variance empirique
+    double empVar = 0;
     std::vector<double> timeStepsVect;
     double finalPrice = 0;
 
 public:
-    BlackScholesMCPricer(Option* option, double initialPrice, double interestRate, double volatility)
-        : option(option), initialPrice(initialPrice), interestRate(interestRate), volatility(volatility) {}
+    BlackScholesMCPricer(Option* option, double initialPrice, double interestRate, double volatility): 
+        option(option), initialPrice(initialPrice), interestRate(interestRate), volatility(volatility) {}
 
     int getNbPaths() const { return numberPaths; }
 
@@ -34,6 +34,4 @@ public:
     double operator()();
 
     std::vector<double> confidenceInterval();
-
-    
 };
