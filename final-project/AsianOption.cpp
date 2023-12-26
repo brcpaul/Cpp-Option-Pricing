@@ -1,11 +1,6 @@
 #include "AsianOption.h"
 #include "Option.h"
 
-
-/// <summary>
-/// 
-/// </summary>
-/// <returns> vector<double> </returns>
 std::vector<double> AsianOption::getTimeSteps() const {
 	return _timeSteps;
 }

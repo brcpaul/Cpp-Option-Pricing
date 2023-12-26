@@ -20,15 +20,7 @@ class BinaryTree {
 		void display() const; 
 		int verifIndex(int, int) const;
 		int maxDigit() const;
-
-		//liens antoine (à ne pas effacer svp): 
-		//https://www.geeksforgeeks.org/vector-in-cpp-stl/
-		//https://cplusplus.com/reference/vector/vector/ (best)
-		//https://stackoverflow.com/questions/36802354/print-binary-tree-in-a-pretty-way-using-c
-		//https://stackoverflow.com/questions/40054600/searching-binary-tree-of-objects-for-a-single-class-member
-		//https://www.youtube.com/watch?v=B6eIfpcAXKk
 };
-template <typename T> std::string toStringWithDecimals(T, int);
 
 
 /// <summary> 

@@ -11,5 +11,4 @@ class DigitalOption : public Option {
 		friend class BlackScholesPricer;
 		DigitalOption(double exp, double strk);
 		virtual optionType GetOptionType() const = 0;
-		//double getStrike() { return _strike; }
 };
