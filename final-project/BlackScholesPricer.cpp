@@ -88,7 +88,7 @@ double BlackScholesPricer::delta() {
         double T = ((DigitalOption*)option)->getExpiry();
         double d1 = (log(S / K) + (r + (std::pow(sigma,2)) / 2.0) * T) / (sigma * sqrt(T));
         double d2 = d1 - sigma * sqrt(T);
-        double result = std::exp(-r * T * N(d2)) / (S * sigma * std::sqrt(T));
+        double result = std::exp(-r * T ) * N(d2) / (S * sigma * std::sqrt(T));
         if (((DigitalOption*)option)->GetOptionType() == optionType::Call) {
             return result;
         }

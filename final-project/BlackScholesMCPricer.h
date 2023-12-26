@@ -16,9 +16,9 @@ private:
     double interestRate;
     double volatility;
     int numberPaths = 0;
-    double currentEstimate = 0;
     double priceSJ = 0;
-    std::vector<double> payoffs;
+    double sumPayoffs = 0;
+    double sumPayoffsSquared = 0;
     double empVar = 0; //variance empirique
     std::vector<double> timeStepsVect;
     double finalPrice = 0;

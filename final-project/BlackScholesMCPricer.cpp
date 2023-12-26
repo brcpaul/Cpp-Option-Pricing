@@ -17,26 +17,20 @@ void BlackScholesMCPricer::generate(int nb_paths)
     }
     else
     {
-        //timeStepsVect[timeStepsVect.size()]
-        
-        timeStepsVect = {option->getExpiry()}; //à la place du 1 : maturity à récup de ?
-        //ici on définit le vecteur time steps d'une option européenne --> juste 2 time steps
+        timeStepsVect = {option->getExpiry()}; 
+        //ici on définit le vecteur time steps d'une option européenne --> juste 1 time steps
     }
     
     
     double avgPrice = 0;
     double payoff = 0;
-    double sumPayoffs = 0;
-    
 
     // Méthode pour générer des chemins
     for (int i = 0; i < nb_paths; ++i) {
         //de k=1 à n
         // calcul de S_t0
         double pathPrice = initialPrice;
-        
         std::vector<double> prices;
-
         pathPrice = pathPrice * exp((interestRate - 0.5 * volatility * volatility)*timeStepsVect[0] + volatility*sqrt(timeStepsVect[0])*MT::rand_norm());
         prices.push_back(pathPrice);
         // Formule de Black-Scholes pour générer des chemins
@@ -51,26 +45,15 @@ void BlackScholesMCPricer::generate(int nb_paths)
         }
 
         payoff = option->payoffPath(prices);
-        payoffs.push_back(payoff);
-    }
-    
-    
-    //Ici on fait la moyenne des prix du SJ
-    //priceSJ = sumPaths / numberPaths;
-
-    for (int j = 0; j < payoffs.size(); j++)
-    {
-        sumPayoffs += payoffs[j] ;  //pour actualiser
+        sumPayoffs += payoff;
+        sumPayoffsSquared += payoff * payoff;
     }
 
-    double price = exp(-interestRate * option->getExpiry())*1/payoffs.size()*sumPayoffs;
+    numberPaths += nb_paths;
+
+    double price = exp(-interestRate * option->getExpiry())*1/numberPaths*sumPayoffs;
     
-    double squaredSum = 0.0;
-    for (int i = 0; i < payoffs.size(); ++i) {
-        squaredSum = squaredSum + pow(payoffs[i],2);
-    }
-    empVar = squaredSum/payoffs.size() - sumPayoffs / payoffs.size();
-    numberPaths = payoffs.size();
+    empVar = sumPayoffsSquared/numberPaths - sumPayoffs / numberPaths;
     finalPrice = price;
 }
 

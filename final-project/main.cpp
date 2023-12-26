@@ -41,8 +41,8 @@ int main()
         do {
             pricer->generate(10);
             ci = pricer->confidenceInterval();
-            if (pricer->getNbPaths() % 1000 == 0) {
-                std::cout << (*pricer)() << std::endl;
+            if (pricer->getNbPaths() % 10000 == 0) {
+                std::cout << (*pricer)() << " "<< ci[1] - ci[0] << std::endl;
             }
         } while (ci[1] - ci[0] > 1e-2);
         std::cout << "nb samples: " << pricer->getNbPaths() << std::endl;
