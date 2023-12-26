@@ -10,7 +10,6 @@
 
 void BlackScholesMCPricer::generate(int nb_paths)
 {    
-    //timeStepsVect =     
     if (option->isAsianOption())
     {
         timeStepsVect = ((AsianOption*)option)->getTimeSteps();
@@ -18,7 +17,7 @@ void BlackScholesMCPricer::generate(int nb_paths)
     else
     {
         timeStepsVect = {option->getExpiry()}; 
-        //ici on définit le vecteur time steps d'une option européenne --> juste 1 time steps
+        //ici on définit le vecteur time steps d'une option avec seulement 1 time steps (européenne par exemple.)
     }
     
     
@@ -27,15 +26,11 @@ void BlackScholesMCPricer::generate(int nb_paths)
 
     // Méthode pour générer des chemins
     for (int i = 0; i < nb_paths; ++i) {
-        //de k=1 à n
-        // calcul de S_t0
         double pathPrice = initialPrice;
         std::vector<double> prices;
         pathPrice = pathPrice * exp((interestRate - 0.5 * volatility * volatility)*timeStepsVect[0] + volatility*sqrt(timeStepsVect[0])*MT::rand_norm());
         prices.push_back(pathPrice);
-        // Formule de Black-Scholes pour générer des chemins
         for (int k = 1; k < timeStepsVect.size(); k++) {
-
             // Formule de Black-Scholes pour générer des chemins
             double drift = exp((interestRate - 0.5 * volatility * volatility) * (timeStepsVect[k] - timeStepsVect[k - 1]));
             double diffusion = exp(volatility * sqrt(timeStepsVect[k] - timeStepsVect[k - 1]) * MT::rand_norm());
@@ -62,7 +57,7 @@ void BlackScholesMCPricer::generate(int nb_paths)
 double BlackScholesMCPricer::operator()()
 {
     if (numberPaths == 0) {
-        //throw std::invalid_argument(" numberPaths doit être différent de 0."); // commenté car cause bug, à régler
+        throw std::runtime_error("NumberPaths doit être différent de 0.");
     }
     return finalPrice;
 }
