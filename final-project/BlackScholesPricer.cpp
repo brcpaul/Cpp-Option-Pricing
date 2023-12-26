@@ -6,7 +6,7 @@
 /// </summary>
 /// <param name="x"> a double </param>
 /// <returns> the distribution of a normal law </returns>
-double BlackScholesPricer::N(double x)
+double N(double x)
 {
     return 0.5 * (1 + std::erf(x / std::sqrt(2.0)));
 }

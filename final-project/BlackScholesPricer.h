@@ -9,7 +9,6 @@
 
 class BlackScholesPricer 
 {
-
     private:
     #pragma region attributes
         Option* option;
@@ -26,26 +25,16 @@ class BlackScholesPricer
             vanilla = true;
         }
 
-    
         BlackScholesPricer(DigitalOption* option, double asset_price, double interest_rate, double volatility)
             : option(option), asset_price(asset_price), interest_rate(interest_rate), volatility(volatility) {
             vanilla = false;
         }
  
         /// <summary>
-        /// Distribution function of the normal law
-        /// </summary>
-        /// <param name="x"> a double </param>
-        /// <returns> the value of the distribution function of the normal law </returns>
-        double N(double x);
-
-
-        /// <summary>
         /// 
         /// </summary>
         /// <returns> the price of the option </returns>
         double operator()();
-
 
         /// <summary>
         /// Delta method to calculate the Delta of the option
@@ -54,3 +43,9 @@ class BlackScholesPricer
         double delta();
 };
 
+/// <summary>
+/// Distribution function of the normal law
+/// </summary>
+/// <param name="x"> a double </param>
+/// <returns> the value of the distribution function of the normal law </returns>
+double N(double x);
